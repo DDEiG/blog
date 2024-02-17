@@ -6,12 +6,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
     public Post create(String title, String body) {
         return postRepository.save(new Post(title, body));
+    }
+
+    @Transactional
+    public Post find(Long id) {
+        return postRepository.findById(id)
+                .orElseThrow();
     }
 
     @Transactional

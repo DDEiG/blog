@@ -43,6 +43,37 @@ class PostServiceTest {
     }
 
     @Test
+    void find() {
+        // Given
+        var id = 1L;
+        var title = "title";
+        var body = "body";
+        given(postRepository.findById(id))
+                .willReturn(Optional.of(
+                        Post.builder()
+                                .id(id)
+                                .title(title)
+                                .body(body)
+                                .build()));
+        // When
+        var post = postService.find(id);
+        // Then
+        assertThat(post.getId()).isEqualTo(id);
+        assertThat(post.getTitle()).isEqualTo(title);
+        assertThat(post.getBody()).isEqualTo(body);
+    }
+
+    @Test
+    void find_notExistId() {
+        // Given
+        given(postRepository.findById(any()))
+                .willReturn(Optional.empty());
+        // When
+        assertThatThrownBy(() -> postService.find(1L))
+                        .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
     void update() {
         // Given
         var id = 1L;
