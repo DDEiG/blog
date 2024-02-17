@@ -1,5 +1,6 @@
 package monkeyforest.blog.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,9 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public abstract class BaseDateTimes {
     @CreatedDate
-    private LocalDateTime createdAt;
+    @Column(columnDefinition = "timestamp")
+    private LocalDateTime createdAt; //
     @LastModifiedDate
+    @Column(columnDefinition = "timestamp")
     private LocalDateTime lastModifiedAt;
 }
