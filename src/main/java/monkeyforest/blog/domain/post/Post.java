@@ -17,4 +17,14 @@ public class Post extends BaseDateTimes {
     private String title;
     @Column(nullable = false, columnDefinition = "text")
     private String body;
+
+    public Post(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
+
+    public void update(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
 }
