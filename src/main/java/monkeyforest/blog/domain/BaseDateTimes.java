@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 @Getter
 public abstract class BaseDateTimes {
     @CreatedDate
-    @Column(columnDefinition = "timestamp")
+    @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime createdAt;
     @LastModifiedDate
-    @Column(columnDefinition = "timestamp")
+    @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime lastModifiedAt;
 }
