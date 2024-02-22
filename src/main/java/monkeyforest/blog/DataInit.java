@@ -7,6 +7,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class DataInit implements ApplicationRunner {
@@ -14,15 +17,14 @@ public class DataInit implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        postRepository.save(Post.builder()
-                .title("title1")
-                .body("body1")
-                .username("username1")
-                .build());
-        postRepository.save(Post.builder()
-                .title("title2")
-                .body("body2")
-                .username("username2")
-                .build());
+        List<Post> posts = new ArrayList<>();
+        for (int i = 1; i <= 13; i++) {
+            posts.add(Post.builder()
+                    .title("title" + i)
+                    .body("body" + i)
+                    .username("username" + i)
+                    .build());
+        }
+        postRepository.saveAll(posts);
     }
 }
