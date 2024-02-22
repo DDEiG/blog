@@ -1,12 +1,19 @@
 package monkeyforest.blog.domain.post;
 
-import org.assertj.core.api.AbstractThrowableAssert;
+import monkeyforest.blog.domain.post.entity.Post;
+import monkeyforest.blog.domain.post.repository.PostRepository;
+import monkeyforest.blog.domain.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -40,6 +47,18 @@ class PostServiceTest {
         assertThat(post.getId()).isEqualTo(id);
         assertThat(post.getTitle()).isEqualTo(title);
         assertThat(post.getBody()).isEqualTo(body);
+    }
+
+    @Test
+    void findPosts() {
+        // Given
+        given(postRepository.findAll((Pageable) any()))
+                .willReturn(Page.empty());
+        // When
+        Page<Post> posts = postService.find(0, 10);
+        // Then
+        assertThat(posts.getTotalElements()).isEqualTo(0);
+        assertThat(posts.getTotalPages()).isEqualTo(1);
     }
 
     @Test

@@ -1,8 +1,16 @@
-package monkeyforest.blog.domain.post;
+package monkeyforest.blog.domain.post.service;
 
 import lombok.RequiredArgsConstructor;
+import monkeyforest.blog.domain.post.entity.Post;
+import monkeyforest.blog.domain.post.repository.PostRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,6 +21,11 @@ public class PostService {
     @Transactional
     public Post create(String title, String body) {
         return postRepository.save(new Post(title, body));
+    }
+
+    @Transactional
+    public Page<Post> find(int pageNumber, int pageSize) {
+        return postRepository.findAll(PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id")));
     }
 
     @Transactional
