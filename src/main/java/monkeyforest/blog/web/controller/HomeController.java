@@ -1,4 +1,4 @@
-package monkeyforest.blog;
+package monkeyforest.blog.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

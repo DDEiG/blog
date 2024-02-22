@@ -25,10 +25,12 @@ class PostRepositoryTest {
         Post post1 = postRepository.save(Post.builder()
                 .title("title1")
                 .body("body1")
+                .username("username1")
                 .build());
         Post post2 = postRepository.save(Post.builder()
                 .title("title2")
                 .body("body2")
+                .username("username2")
                 .build());
         // When
         Page<Post> page = postRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "id")));

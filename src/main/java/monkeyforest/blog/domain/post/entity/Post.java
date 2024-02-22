@@ -17,6 +17,8 @@ public class Post extends BaseDateTimes {
     private String title;
     @Column(nullable = false, columnDefinition = "text")
     private String body;
+    @Column(nullable = false, length = 30)
+    private String username;
 
     public Post(String title, String body) {
         this.title = title;
