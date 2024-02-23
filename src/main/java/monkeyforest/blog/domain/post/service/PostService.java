@@ -26,6 +26,11 @@ public class PostService {
     }
 
     @Transactional
+    public Page<Post> searchPosts(String title, int pageNumber, int pageSize) {
+        return postRepository.searchPost(title + "%", PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id")));
+    }
+
+    @Transactional
     public Post findPost(Long id) {
         return postRepository.findById(id)
                 .orElseThrow();

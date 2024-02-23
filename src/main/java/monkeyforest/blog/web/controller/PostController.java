@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static org.springframework.util.StringUtils.hasText;
+
 @Controller
 @RequestMapping("/posts")
 @RequiredArgsConstructor
@@ -23,6 +25,16 @@ public class PostController {
                             @RequestParam(defaultValue = "10") @Min(1) int pageSize,
                             Model model) {
         Page<Post> postPage = postService.findPosts(pageNumber, pageSize);
+        model.addAttribute("postPage", postPage);
+        return "posts";
+    }
+
+    @GetMapping("/search")
+    public String searchPosts(@RequestParam String titleForSearch,
+                              @RequestParam(defaultValue = "0") @Min(0) int pageNumber,
+                              @RequestParam(defaultValue = "10") @Min(1) int pageSize,
+                              Model model) {
+        Page<Post> postPage = postService.searchPosts(titleForSearch, pageNumber, pageSize);
         model.addAttribute("postPage", postPage);
         return "posts";
     }

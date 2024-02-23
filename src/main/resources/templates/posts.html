@@ -8,6 +8,13 @@
     <title>Document</title>
 </head>
 <body>
+<form th:action="@{/posts/search}" th:method="get">
+    <label>
+        제목 검색
+        <input name="titleForSearch" type="text">
+    </label>
+    <input type="submit">
+</form>
 <table>
     <tr>
         <th>번호</th>
@@ -23,14 +30,15 @@
         <td th:text="${post.createdAt}"></td>
         <td th:text="${post.lastModifiedAt}"></td>
         <td>
-            <a th:href="@{posts/{id}(id=${post.id})}" role="button">이동</a>
+            <a th:href="@{/posts/{id}(id=${post.id})}" role="button">이동</a>
         </td>
     </tr>
 </table>
-<button th:onclick="|location.href='@{posts(pageNumber=${postPage.number}-1)}'|"
-        th:disabled="${postPage.number}==0">이전</button>
+<!--TODO: 개수가 0일떄 표시가 이상함-->
+<button th:onclick="|location.href='@{/posts(pageNumber=${postPage.number}-1)}'|"
+        th:disabled="${postPage.number}==0"><</button>
 <span th:text="${postPage.number}+1 + '/' + ${postPage.totalPages}" ></span>
-<button th:onclick="|location.href='@{posts(pageNumber=${postPage.number}+1)}'|"
-        th:disabled="${postPage.number}==${postPage.totalPages}-1">이후</button>
+<button th:onclick="|location.href='@{/posts(pageNumber=${postPage.number}+1)}'|"
+        th:disabled="${postPage.number}==${postPage.totalPages}-1">></button>
 </body>
 </html>
