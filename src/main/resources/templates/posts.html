@@ -23,7 +23,11 @@
         <td th:text="${post.createdAt}"></td>
         <td th:text="${post.lastModifiedAt}"></td>
     </tr>
-
 </table>
+<button th:onclick="|location.href='@{posts(pageNumber=${postPage.number}-1)}'|"
+        th:disabled="${postPage.number}==0">이전</button>
+<span th:text="${postPage.number}+1 + '/' + ${postPage.totalPages}" ></span>
+<button th:onclick="|location.href='@{posts(pageNumber=${postPage.number}+1)}'|"
+        th:disabled="${postPage.number}==${postPage.totalPages}-1">이후</button>
 </body>
 </html>
