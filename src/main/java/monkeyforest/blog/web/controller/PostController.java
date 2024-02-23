@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,9 +20,17 @@ public class PostController {
 
     @GetMapping
     public String findPosts(@RequestParam(defaultValue = "0") @Min(0) int pageNumber,
-                            @RequestParam(defaultValue = "10") @Min(1) int pageSize, Model model) {
-        Page<Post> postPage = postService.find(pageNumber, pageSize);
+                            @RequestParam(defaultValue = "10") @Min(1) int pageSize,
+                            Model model) {
+        Page<Post> postPage = postService.findPosts(pageNumber, pageSize);
         model.addAttribute("postPage", postPage);
         return "posts";
+    }
+
+    @GetMapping("/{id}")
+    public String findPost(@PathVariable Long id, Model model) {
+        Post post = postService.findPost(id);
+        model.addAttribute("post", post);
+        return "post";
     }
 }

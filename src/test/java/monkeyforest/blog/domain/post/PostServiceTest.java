@@ -9,11 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -42,7 +39,7 @@ class PostServiceTest {
                         .body(body)
                         .build());
         // When
-        var post = postService.create(title, body);
+        var post = postService.createPost(title, body);
         // Then
         assertThat(post.getId()).isEqualTo(id);
         assertThat(post.getTitle()).isEqualTo(title);
@@ -55,7 +52,7 @@ class PostServiceTest {
         given(postRepository.findAll((Pageable) any()))
                 .willReturn(Page.empty());
         // When
-        Page<Post> posts = postService.find(0, 10);
+        Page<Post> posts = postService.findPosts(0, 10);
         // Then
         assertThat(posts.getTotalElements()).isEqualTo(0);
         assertThat(posts.getTotalPages()).isEqualTo(1);
@@ -75,7 +72,7 @@ class PostServiceTest {
                                 .body(body)
                                 .build()));
         // When
-        var post = postService.find(id);
+        var post = postService.findPost(id);
         // Then
         assertThat(post.getId()).isEqualTo(id);
         assertThat(post.getTitle()).isEqualTo(title);
@@ -88,7 +85,7 @@ class PostServiceTest {
         given(postRepository.findById(any()))
                 .willReturn(Optional.empty());
         // When
-        assertThatThrownBy(() -> postService.find(1L))
+        assertThatThrownBy(() -> postService.findPost(1L))
                         .isInstanceOf(NoSuchElementException.class);
     }
 
@@ -106,7 +103,7 @@ class PostServiceTest {
                                 .body("body")
                                 .build()));
         // When
-        var post = postService.update(id, newTitle, newBody);
+        var post = postService.updatePost(id, newTitle, newBody);
         // Then
         assertThat(post.getTitle()).isEqualTo(newTitle);
         assertThat(post.getBody()).isEqualTo(newBody);
@@ -121,12 +118,12 @@ class PostServiceTest {
         given(postRepository.findById(id))
                 .willReturn(Optional.empty());
         // When
-        assertThatThrownBy(() -> postService.update(id, newTitle, newBody))
+        assertThatThrownBy(() -> postService.updatePost(id, newTitle, newBody))
                 .isInstanceOf(NoSuchElementException.class);
     }
 
     @Test
     void delete() {
-        postService.delete(1L);
+        postService.deletePost(1L);
     }
 }

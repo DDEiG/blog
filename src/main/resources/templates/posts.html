@@ -22,6 +22,9 @@
         <td th:text="${post.username}"></td>
         <td th:text="${post.createdAt}"></td>
         <td th:text="${post.lastModifiedAt}"></td>
+        <td>
+            <a th:href="@{posts/{id}(id=${post.id})}" role="button">이동</a>
+        </td>
     </tr>
 </table>
 <button th:onclick="|location.href='@{posts(pageNumber=${postPage.number}-1)}'|"
