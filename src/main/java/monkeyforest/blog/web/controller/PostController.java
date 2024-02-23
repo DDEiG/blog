@@ -1,7 +1,6 @@
 package monkeyforest.blog.web.controller;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.service.PostService;
