@@ -9,6 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Random;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -17,7 +19,7 @@ public class PostService {
 
     @Transactional
     public Post createPost(String title, String body) {
-        return postRepository.save(new Post(title, body));
+        return postRepository.save(new Post(title, body, "username" + (new Random().nextInt(10) + 1))); // TODO: 회원정보 자동 저장
     }
 
     @Transactional

@@ -7,20 +7,14 @@ import monkeyforest.blog.domain.post.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import static org.springframework.util.StringUtils.hasText;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
 
-    @GetMapping
+    @GetMapping("/posts")
     public String findPosts(@RequestParam(defaultValue = "0") @Min(0) int pageNumber,
                             @RequestParam(defaultValue = "10") @Min(1) int pageSize,
                             Model model) {
@@ -29,7 +23,7 @@ public class PostController {
         return "posts";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/posts/search")
     public String searchPosts(@RequestParam String titleForSearch,
                               @RequestParam(defaultValue = "0") @Min(0) int pageNumber,
                               @RequestParam(defaultValue = "10") @Min(1) int pageSize,
@@ -39,10 +33,21 @@ public class PostController {
         return "posts";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/posts/{id}")
     public String findPost(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
         model.addAttribute("post", post);
         return "post";
+    }
+
+    @GetMapping("/post/write")
+    public String writePost() {
+        return "post-write";
+    }
+
+    @PostMapping("/post/write")
+    public String writePost(@RequestParam String title, @RequestParam String body) {
+        Post post = postService.createPost(title, body);
+        return "redirect:/posts/" + post.getId();
     }
 }

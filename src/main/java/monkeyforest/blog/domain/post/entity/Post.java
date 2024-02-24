@@ -20,9 +20,10 @@ public class Post extends BaseDateTimes {
     @Column(nullable = false, length = 30)
     private String username;
 
-    public Post(String title, String body) {
+    public Post(String title, String body, String username) {
         this.title = title;
         this.body = body;
+        this.username = username;
     }
 
     public void update(String title, String body) {
