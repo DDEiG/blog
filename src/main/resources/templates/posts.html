@@ -27,7 +27,7 @@
     <tr th:each="post, i : ${postPage.content}">
         <td th:text="${i.count}"></td>
         <td th:text="${post.title}"></td>
-        <td th:text="${post.username}"></td>
+        <td th:text="${post.writer}"></td>
         <td th:text="${post.createdAt}"></td>
         <td th:text="${post.lastModifiedAt}"></td>
         <td>
