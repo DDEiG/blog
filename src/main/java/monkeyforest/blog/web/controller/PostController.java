@@ -48,7 +48,7 @@ public class PostController {
     @PostMapping("/post/write")
     public String writePost(@RequestParam String title, @RequestParam String body) {
         Post post = postService.createPost(title, body);
-        return "redirect:/posts/" + post.getId();
+        return "redirect:/posts";
     }
 
     @GetMapping("/posts/{id}/edit")
@@ -62,5 +62,11 @@ public class PostController {
     public String editPost(@PathVariable Long id, @RequestParam String title, @RequestParam String body) {
         Post post = postService.updatePost(id, title, body);
         return "redirect:/posts/" + post.getId();
+    }
+
+    @DeleteMapping("/posts/{id}")
+    public String deletePost(@PathVariable Long id) {
+        postService.deletePost(id);
+        return "redirect:/posts";
     }
 }
