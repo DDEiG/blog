@@ -18,12 +18,12 @@ public class Post extends BaseDateTimes {
     @Column(nullable = false, columnDefinition = "text")
     private String body;
     @Column(nullable = false, length = 30)
-    private String username;
+    private String writer;
 
-    public Post(String title, String body, String username) {
+    public Post(String title, String body, String writer) {
         this.title = title;
         this.body = body;
-        this.username = username;
+        this.writer = writer;
     }
 
     public void update(String title, String body) {
