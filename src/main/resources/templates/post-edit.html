@@ -8,17 +8,18 @@
     <title>Document</title>
 </head>
 <body>
-<form th:action="@{/post/edit}" method="post">
+<form th:action="@{/posts/{id}/edit(id=${post.id})}" method="post">
     <label>
         제목
-        <input type="text" name="title">
+        <input type="text" name="title" th:value="${post.title}">
     </label>
     <br>
     <label>
         본문
-        <textarea name="body" id="" cols="30" rows="10"></textarea>
+        <textarea name="body" id="" cols="30" rows="10" th:text="${post.body}"></textarea>
     </label>
     <button type="submit">저장</button>
 </form>
+<a th:href="@{/posts/{id}(id=${post.id})}">취소</a>
 </body>
 </html>

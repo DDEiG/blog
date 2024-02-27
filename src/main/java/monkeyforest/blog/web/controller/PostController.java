@@ -15,9 +15,9 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/posts")
-    public String findPosts(@RequestParam(defaultValue = "0") @Min(0) int pageNumber,
-                            @RequestParam(defaultValue = "10") @Min(1) int pageSize,
-                            Model model) {
+    public String posts(@RequestParam(defaultValue = "0") @Min(0) int pageNumber,
+                        @RequestParam(defaultValue = "10") @Min(1) int pageSize,
+                        Model model) {
         Page<Post> postPage = postService.findPosts(pageNumber, pageSize);
         model.addAttribute("postPage", postPage);
         return "posts";
@@ -34,20 +34,33 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String findPost(@PathVariable Long id, Model model) {
+    public String post(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
         model.addAttribute("post", post);
         return "post";
     }
 
     @GetMapping("/post/write")
-    public String writePost() {
+    public String postWrite() {
         return "post-write";
     }
 
     @PostMapping("/post/write")
     public String writePost(@RequestParam String title, @RequestParam String body) {
         Post post = postService.createPost(title, body);
+        return "redirect:/posts/" + post.getId();
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String postEdit(@PathVariable Long id, Model model) {
+        Post post = postService.findPost(id);
+        model.addAttribute("post", post);
+        return "post-edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String editPost(@PathVariable Long id, @RequestParam String title, @RequestParam String body) {
+        Post post = postService.updatePost(id, title, body);
         return "redirect:/posts/" + post.getId();
     }
 }
