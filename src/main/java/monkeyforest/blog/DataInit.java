@@ -22,7 +22,7 @@ public class DataInit implements ApplicationRunner {
             posts.add(Post.builder()
                     .title("title" + i)
                     .body("body" + i)
-                    .username("username" + i)
+                    .writer("username" + i)
                     .build());
         }
         postRepository.saveAll(posts);
