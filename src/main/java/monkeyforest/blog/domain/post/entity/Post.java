@@ -5,10 +5,11 @@ import lombok.*;
 import monkeyforest.blog.domain.BaseDateTimes;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Getter
+@Setter
 public class Post extends BaseDateTimes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,5 +30,9 @@ public class Post extends BaseDateTimes {
     public void update(String title, String body) {
         this.title = title;
         this.body = body;
+    }
+
+    public void update(String username) {
+        this.username = username;
     }
 }

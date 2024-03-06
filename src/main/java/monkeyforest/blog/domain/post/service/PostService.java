@@ -18,8 +18,9 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Post createPost(String title, String body) {
-        return postRepository.save(new Post(title, body, "username" + (new Random().nextInt(10) + 1))); // TODO: 회원정보 자동 저장
+    public Post createPost(Post post) {
+        post.update("username" + (new Random().nextInt(10) + 1));
+        return postRepository.save(post); // TODO: 회원정보 자동 저장
     }
 
     @Transactional

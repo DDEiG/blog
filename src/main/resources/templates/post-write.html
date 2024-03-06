@@ -8,15 +8,15 @@
     <title>Document</title>
 </head>
 <body>
-<form th:action="@{/post/write}" method="post">
+<form th:action="@{/post/write}" th:object="${post}" method="post">
     <label>
         제목
-        <input type="text" name="title">
+        <input type="text" th:field="*{title}">
     </label>
     <br>
     <label>
         본문
-        <textarea name="body" id="" cols="30" rows="10"></textarea>
+        <textarea id="" cols="30" rows="10" th:field="*{body}"></textarea>
     </label>
     <button type="submit">저장</button>
 </form>

@@ -41,13 +41,14 @@ public class PostController {
     }
 
     @GetMapping("/post/write")
-    public String writePost() {
+    public String writePost(Model model) {
+        model.addAttribute(new Post());
         return "post-write";
     }
 
     @PostMapping("/post/write")
-    public String writePost(@RequestParam String title, @RequestParam String body) {
-        Post post = postService.createPost(title, body);
+    public String writePost(@ModelAttribute Post post) {
+        postService.createPost(post);
         return "redirect:/posts/" + post.getId();
     }
 }
