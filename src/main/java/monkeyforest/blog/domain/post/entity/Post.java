@@ -5,11 +5,11 @@ import lombok.*;
 import monkeyforest.blog.domain.BaseDateTimes;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PUBLIC) // TODO: DTO와 엔티티 분리 후 PROTECTED로 변경
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Getter
-@Setter
+@Setter // TODO: DTO와 엔티티 분리 후 삭제
 public class Post extends BaseDateTimes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
