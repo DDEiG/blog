@@ -11,14 +11,14 @@
 <form th:action="@{/post/write}" th:object="${post}" method="post">
     <label>
         제목
-        <input type="text" th:field="*{title}" th:errorclass="field-error">
-        <div class="field-error" th:errors="*{title}"></div>
+        <input type="text" th:field="*{title}">
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
     </label>
     <br>
     <label>
         본문
-        <textarea id="" cols="30" rows="10" th:field="*{body}" th:errorclass="field-error"></textarea>
-        <div class="field-error" th:errors="*{body}"></div>
+        <textarea id="" cols="30" rows="10" th:field="*{body}"></textarea>
+        <div th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></div>
     </label>
     <button type="submit">저장</button>
 </form>
