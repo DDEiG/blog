@@ -9,6 +9,7 @@ import monkeyforest.blog.web.controller.form.PostCreateForm;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -49,7 +50,10 @@ public class PostController {
     }
 
     @PostMapping("/post/write")
-    public String writePost(@ModelAttribute @Valid PostCreateForm postCreateForm) {
+    public String writePost(@ModelAttribute @Valid PostCreateForm postCreateForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "post-write";
+        }
         postService.createPost(postCreateForm.toPost());
         return "redirect:/posts";
     }

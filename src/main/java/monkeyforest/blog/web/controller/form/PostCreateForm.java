@@ -2,12 +2,10 @@ package monkeyforest.blog.web.controller.form;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import monkeyforest.blog.domain.post.entity.Post;
 
-@Getter
-@Setter
+@Data
 public class PostCreateForm {
     @NotEmpty
     @Size(max = 50)
