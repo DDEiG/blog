@@ -8,15 +8,17 @@
     <title>Document</title>
 </head>
 <body>
-<form th:action="@{/posts/{id}/edit(id=${post.id})}" method="post">
+<form th:action="@{/posts/{id}/edit(id=*{id})}" th:object="${post}" method="post">
     <label>
         제목
-        <input type="text" name="title" th:value="${post.title}">
+        <input type="text" name="title" th:value="*{title}">
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
     </label>
     <br>
     <label>
         본문
-        <textarea name="body" id="" cols="30" rows="10" th:text="${post.body}"></textarea>
+        <textarea name="body" id="" cols="30" rows="10" th:text="*{body}"></textarea>
+        <div th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></div>
     </label>
     <button type="submit">저장</button>
 </form>
