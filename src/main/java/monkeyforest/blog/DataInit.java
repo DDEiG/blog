@@ -5,6 +5,7 @@ import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.repository.PostRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
