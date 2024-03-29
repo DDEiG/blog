@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+@Profile("local")
 @Component
 @RequiredArgsConstructor
 public class DataInit implements ApplicationRunner {
