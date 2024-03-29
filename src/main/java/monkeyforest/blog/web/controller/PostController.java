@@ -1,9 +1,11 @@
 package monkeyforest.blog.web.controller;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.service.PostService;
+import monkeyforest.blog.web.controller.form.PostCreateForm;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,13 +44,13 @@ public class PostController {
 
     @GetMapping("/post/write")
     public String postWrite(Model model) {
-        model.addAttribute(new Post());
+        model.addAttribute(new PostCreateForm());
         return "post-write";
     }
 
     @PostMapping("/post/write")
-    public String writePost(@ModelAttribute Post post) {
-        postService.createPost(post);
+    public String writePost(@ModelAttribute @Valid PostCreateForm postCreateForm) {
+        postService.createPost(postCreateForm.toPost());
         return "redirect:/posts";
     }
 
