@@ -19,6 +19,8 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  messages:
+    basename: errors
 
 
 logging:

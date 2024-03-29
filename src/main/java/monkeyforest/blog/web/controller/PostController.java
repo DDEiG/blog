@@ -45,12 +45,12 @@ public class PostController {
 
     @GetMapping("/post/write")
     public String postWrite(Model model) {
-        model.addAttribute(new PostCreateForm());
+        model.addAttribute("post", new PostCreateForm());
         return "post-write";
     }
 
     @PostMapping("/post/write")
-    public String writePost(@ModelAttribute @Valid PostCreateForm postCreateForm, BindingResult bindingResult) {
+    public String writePost(@ModelAttribute("post") @Valid PostCreateForm postCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "post-write";
         }
