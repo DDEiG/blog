@@ -32,14 +32,15 @@ class PostServiceTest {
         var id = 1L;
         var title = "title";
         var body = "body";
+        Post inPost = Post.builder()
+                .id(id)
+                .title(title)
+                .body(body)
+                .build();
         given(postRepository.save(any()))
-                .willReturn(Post.builder()
-                        .id(id)
-                        .title(title)
-                        .body(body)
-                        .build());
+                .willReturn(inPost);
         // When
-        var post = postService.createPost(title, body);
+        var post = postService.createPost(inPost);
         // Then
         assertThat(post.getId()).isEqualTo(id);
         assertThat(post.getTitle()).isEqualTo(title);

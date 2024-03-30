@@ -1,12 +1,16 @@
 package monkeyforest.blog.web.controller;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.service.PostService;
+import monkeyforest.blog.web.controller.form.PostCreateForm;
+import monkeyforest.blog.web.controller.form.PostUpdateForm;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -41,26 +45,33 @@ public class PostController {
     }
 
     @GetMapping("/post/write")
-    public String postWrite() {
+    public String postWrite(Model model) {
+        model.addAttribute("post", new PostCreateForm());
         return "post-write";
     }
 
     @PostMapping("/post/write")
-    public String writePost(@RequestParam String title, @RequestParam String body) {
-        Post post = postService.createPost(title, body);
+    public String writePost(@ModelAttribute("post") @Valid PostCreateForm postCreateForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "post-write";
+        }
+        postService.createPost(postCreateForm.toPost());
         return "redirect:/posts";
     }
 
     @GetMapping("/posts/{id}/edit")
     public String postEdit(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
-        model.addAttribute("post", post);
+        model.addAttribute("post", PostUpdateForm.from(post));
         return "post-edit";
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String editPost(@PathVariable Long id, @RequestParam String title, @RequestParam String body) {
-        Post post = postService.updatePost(id, title, body);
+    public String editPost(@ModelAttribute("post") @Valid PostUpdateForm postUpdateForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "post-edit";
+        }
+        Post post = postService.updatePost(postUpdateForm.getId(), postUpdateForm.getTitle(), postUpdateForm.getBody());
         return "redirect:/posts/" + post.getId();
     }
 

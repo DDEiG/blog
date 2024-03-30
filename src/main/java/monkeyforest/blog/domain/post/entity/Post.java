@@ -30,4 +30,8 @@ public class Post extends BaseDateTimes {
         this.title = title;
         this.body = body;
     }
+
+    public void update(String writer) {
+        this.writer = writer;
+    }
 }
