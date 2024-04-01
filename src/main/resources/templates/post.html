@@ -9,18 +9,18 @@
 </head>
 <body>
 <label>
-    제목
+    <h3 th:text="#{post.title}"></h3>
     <input type="text" name="title" th:value="${post.title}" th:readonly="true">
 </label>
 <br>
 <label>
-    본문
+    <h3 th:text="#{post.body}"></h3>
     <textarea name="body" id="" cols="30" rows="10" th:text="${post.body}" th:readonly="true"></textarea>
 </label>
-<a th:href="@{/posts/{id}/edit(id=${post.id})}">수정</a>
+<a th:href="@{/posts/{id}/edit(id=${post.id})}" th:text="#{post.modify}"></a>
 <form th:action="@{/posts/{id}(id=${post.id})}" th:method="delete">
-    <button type="submit">삭제</button>
+    <button type="submit" th:text="#{post.delete}"></button>
 </form>
-<a th:href="@{/posts}">목록으로</a>
+<a th:href="@{/posts}" th:text="#{post.list}"></a>
 </body>
 </html>

@@ -10,18 +10,18 @@
 <body>
 <form th:action="@{/posts/{id}/edit(id=*{id})}" th:object="${post}" method="post">
     <label>
-        제목
+        <h3 th:text="#{post.title}"></h3>
         <input type="text" name="title" th:value="*{title}">
         <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
     </label>
     <br>
     <label>
-        본문
+        <h3 th:text="#{post.title}"></h3>
         <textarea name="body" id="" cols="30" rows="10" th:text="*{body}"></textarea>
         <div th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></div>
     </label>
-    <button type="submit">저장</button>
+    <button type="submit" th:text="#{post.save}"></button>
 </form>
-<a th:href="@{/posts/{id}(id=${post.id})}">취소</a>
+<a th:href="@{/posts/{id}(id=${post.id})}" th:text="#{post.cancel}"></a>
 </body>
 </html>

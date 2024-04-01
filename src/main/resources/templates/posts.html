@@ -10,19 +10,18 @@
 <body>
 <form th:action="@{/posts/search}" th:method="get">
     <label>
-        제목 검색
         <input name="titleForSearch" type="text">
     </label>
-    <input type="submit">
+    <input type="submit" th:text="#{posts.search}">
 </form>
-<button th:onclick="|location.href='@{/post/write}'|">글작성</button>
+<button th:onclick="|location.href='@{/post/write}'|" th:text="#{posts.write}"></button>
 <table>
     <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>글쓴이</th>
-        <th>최초 작성 일시</th>
-        <th>마지막 수정 일시</th>
+        <th th:text="#{posts.table.number}"></th>
+        <th th:text="#{posts.table.title}"></th>
+        <th th:text="#{posts.table.writer}"></th>
+        <th th:text="#{posts.table.created-at}"></th>
+        <th th:text="#{posts.table.updated-at}"></th>
     </tr>
     <tr th:each="post, i : ${postPage.content}">
         <td th:text="${i.count}"></td>
@@ -31,7 +30,7 @@
         <td th:text="${post.createdAt}"></td>
         <td th:text="${post.lastModifiedAt}"></td>
         <td>
-            <a th:href="@{/posts/{id}(id=${post.id})}" role="button">이동</a>
+            <a th:href="@{/posts/{id}(id=${post.id})}" role="button" th:text="#{posts.move}"></a>
         </td>
     </tr>
 </table>
