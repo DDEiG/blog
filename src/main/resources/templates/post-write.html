@@ -10,7 +10,7 @@
 <body>
 <form th:action="@{/post/write}" th:object="${post}" method="post">
     <label>
-        <h3 th:text="#{post.title}"></h3>
+        <span th:text="#{post.title}"></span>
         <input type="text" th:field="*{title}">
         <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
     </label>
