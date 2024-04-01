@@ -16,7 +16,7 @@
     </label>
     <br>
     <label>
-        <h3 th:text="#{post.title}"></h3>
+        <h3 th:text="#{post.body}"></h3>
         <textarea name="body" id="" cols="30" rows="10" th:text="*{body}"></textarea>
         <div th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></div>
     </label>
