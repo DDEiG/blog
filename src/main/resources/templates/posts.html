@@ -12,7 +12,7 @@
     <label>
         <input name="titleForSearch" type="text">
     </label>
-    <input type="submit" th:text="#{posts.search}">
+    <input type="submit" th:value="#{posts.search}">
 </form>
 <button th:onclick="|location.href='@{/post/write}'|" th:text="#{posts.write}"></button>
 <table>
