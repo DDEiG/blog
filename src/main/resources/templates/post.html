@@ -17,10 +17,17 @@
     <h3 th:text="#{post.body}"></h3>
     <textarea name="body" id="" cols="30" rows="10" th:text="${post.body}" th:readonly="true"></textarea>
 </label>
-<a th:href="@{/posts/{id}/edit(id=${post.id})}" th:text="#{post.modify}"></a>
+
+<form th:action="@{/posts/{id}/edit(id=${post.id})}">
+    <button type="submit" th:text="#{post.modify}"></button>
+</form>
+
 <form th:action="@{/posts/{id}(id=${post.id})}" th:method="delete">
     <button type="submit" th:text="#{post.delete}"></button>
 </form>
-<a th:href="@{/posts}" th:text="#{post.list}"></a>
+
+<form th:action="@{/posts}">
+    <button type="submit" th:text="#{post.list}"></button>
+</form>
 </body>
 </html>

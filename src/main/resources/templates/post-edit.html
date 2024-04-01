@@ -22,6 +22,9 @@
     </label>
     <button type="submit" th:text="#{post.save}"></button>
 </form>
-<a th:href="@{/posts/{id}(id=${post.id})}" th:text="#{post.cancel}"></a>
+
+<form th:action="@{/posts/{id}(id=${post.id})}">
+    <button type="submit" th:text="#{post.cancel}"></button>
+</form>
 </body>
 </html>
