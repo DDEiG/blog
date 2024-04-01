@@ -12,6 +12,8 @@
         <li><a th:href="@{/}">홈</a></li>
         <li><a th:href="@{/posts}">게시글</a></li>
         <li><a th:href="@{/}">로그인/회원가입</a></li>
+        <li><span th:text="|Your locale is ${#locale.country}|"></span></li>
+
     </ul>
 </nav>
 <body>
