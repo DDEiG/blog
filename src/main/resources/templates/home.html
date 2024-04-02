@@ -7,17 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<nav>
-    <ul>
-        <li><a th:href="@{/}">홈</a></li>
-        <li><a th:href="@{/posts}">게시글</a></li>
-        <li><a th:href="@{/}">로그인/회원가입</a></li>
-        <li><span th:text="|Your locale is ${#locale.country}|"></span></li>
-
-    </ul>
-</nav>
 <body>
+<div th:insert="~{header :: nav}"></div>
 <h1 th:text="#{home.title}"></h1>
 <h2 th:utext="#{home.sub-title}"></h2>
+<div th:insert="~{footer :: copy}"></div>
 </body>
 </html>
