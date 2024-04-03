@@ -8,15 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-<label>
+<div>
     <span th:text="#{post.title}"></span>
     <input type="text" name="title" th:value="${post.title}" th:readonly="true">
-</label>
-<br>
-<label>
+</div>
+<div>
     <h3 th:text="#{post.body}"></h3>
     <textarea name="body" id="" cols="30" rows="10" th:text="${post.body}" th:readonly="true"></textarea>
-</label>
+</div>
 
 <form th:action="@{/posts/{id}/edit(id=${post.id})}">
     <button type="submit" th:text="#{post.modify}"></button>

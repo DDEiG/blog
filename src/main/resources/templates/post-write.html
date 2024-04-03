@@ -9,17 +9,16 @@
 </head>
 <body>
 <form th:action="@{/post/write}" th:object="${post}" method="post">
-    <label>
+    <div>
         <span th:text="#{post.title}"></span>
         <input type="text" th:field="*{title}">
         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-    </label>
-    <br>
-    <label>
+    </div>
+    <div>
         <h3 th:text="#{post.body}"></h3>
         <textarea cols="30" rows="10" th:field="*{body}"></textarea>
         <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></span>
-    </label>
+    </div>
     <button type="submit" th:text="#{post.save}"></button>
 </form>
 </body>
