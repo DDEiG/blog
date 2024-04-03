@@ -17,7 +17,7 @@
     <br>
     <label>
         <h3 th:text="#{post.body}"></h3>
-        <textarea id="" cols="30" rows="10" th:field="*{body}"></textarea>
+        <textarea cols="30" rows="10" th:field="*{body}"></textarea>
         <div th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></div>
     </label>
     <button type="submit" th:text="#{post.save}"></button>

@@ -11,13 +11,13 @@
 <form th:action="@{/posts/{id}/edit(id=*{id})}" th:object="${post}" method="post">
     <label>
         <span th:text="#{post.title}"></span>
-        <input type="text" name="title" th:value="*{title}">
+        <input type="text" th:field="*{title}">
         <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
     </label>
     <br>
     <label>
         <h3 th:text="#{post.body}"></h3>
-        <textarea name="body" id="" cols="30" rows="10" th:text="*{body}"></textarea>
+        <textarea cols="30" rows="10" th:field="*{body}"></textarea>
         <div th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></div>
     </label>
     <button type="submit" th:text="#{post.save}"></button>
