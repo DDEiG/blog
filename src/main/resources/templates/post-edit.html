@@ -12,13 +12,13 @@
     <label>
         <span th:text="#{post.title}"></span>
         <input type="text" th:field="*{title}">
-        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
     </label>
     <br>
     <label>
         <h3 th:text="#{post.body}"></h3>
         <textarea cols="30" rows="10" th:field="*{body}"></textarea>
-        <div th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></div>
+        <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></span>
     </label>
     <button type="submit" th:text="#{post.save}"></button>
 </form>
