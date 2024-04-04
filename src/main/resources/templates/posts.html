@@ -28,8 +28,8 @@
         <td th:text="${i.count}"></td>
         <td th:text="${post.title}"></td>
         <td th:text="${post.writer}"></td>
-        <td th:text="${post.createdAt}"></td>
-        <td th:text="${post.lastModifiedAt}"></td>
+        <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}"></td>
+        <td th:text="${#temporals.format(post.lastModifiedAt, 'yyyy-MM-dd')}"></td>
         <td>
             <a th:href="@{/posts/{id}(id=${post.id})}" role="button" th:text="#{posts.move}"></a>
         </td>
