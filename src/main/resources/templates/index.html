@@ -8,7 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-<h1 th:text="${homeMessage}"></h1>
-<h2 th:text="${subTitle}"></h2>
+<div th:replace="~{header :: nav}"></div>
+<h1 th:text="#{home.title}"></h1>
+<h2 th:utext="#{home.sub-title}"></h2>
+<div th:replace="~{footer :: copy}"></div>
 </body>
 </html>
