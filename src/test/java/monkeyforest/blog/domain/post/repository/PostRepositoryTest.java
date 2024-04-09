@@ -25,16 +25,8 @@ class PostRepositoryTest {
     @Test
     void pagination() {
         // Given
-        Post post1 = postRepository.save(Post.builder()
-                .title("title1")
-                .body("body1")
-                .writer("username1")
-                .build());
-        Post post2 = postRepository.save(Post.builder()
-                .title("title2")
-                .body("body2")
-                .writer("username2")
-                .build());
+        Post post1 = postRepository.save(new Post("title1", "body1", "username1"));
+        Post post2 = postRepository.save(new Post("title2", "body2", "username2"));
         // When
         Page<Post> page = postRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "id")));
         // Then
