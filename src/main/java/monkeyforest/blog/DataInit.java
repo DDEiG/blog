@@ -19,6 +19,10 @@ public class DataInit implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
+        long count = postRepository.count();
+        if (count != 0) {
+            return;
+        }
         List<Post> posts = new ArrayList<>();
         for (int i = 1; i <= 13; i++) {
             posts.add(Post.builder()
