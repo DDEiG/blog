@@ -1,5 +1,6 @@
 package monkeyforest.blog.web.controller.form;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -10,10 +11,10 @@ import monkeyforest.blog.domain.post.entity.Post;
 public class PostUpdateForm {
     @NotNull
     private Long id;
-    @NotEmpty
+    @NotBlank
     @Size(max = 50)
     private String title;
-    @NotEmpty
+    @NotBlank
     @Size(max = 20_000)
     private String body;
 

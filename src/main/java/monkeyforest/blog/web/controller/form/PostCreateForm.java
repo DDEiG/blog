@@ -1,5 +1,6 @@
 package monkeyforest.blog.web.controller.form;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -9,10 +10,10 @@ import java.util.Random;
 
 @Data
 public class PostCreateForm {
-    @NotEmpty
+    @NotBlank
     @Size(max = 50)
     private String title;
-    @NotEmpty
+    @NotBlank
     @Size(max = 20_000)
     private String body;
 
