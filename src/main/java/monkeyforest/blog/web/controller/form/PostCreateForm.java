@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import monkeyforest.blog.domain.post.entity.Post;
 
+import java.util.Random;
+
 @Data
 public class PostCreateForm {
     @NotEmpty
@@ -15,9 +17,6 @@ public class PostCreateForm {
     private String body;
 
     public Post toPost() {
-        return Post.builder()
-                .title(title)
-                .body(body)
-                .build();
+        return new Post(title, body, "username" + (new Random().nextInt(10) + 1));
     }
 }
