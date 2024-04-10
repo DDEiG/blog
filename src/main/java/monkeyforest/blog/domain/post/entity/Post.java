@@ -31,6 +31,8 @@ public class Post extends BaseDateTimes {
     }
 
     public void update(String title, String body) {
+        Assert.hasText(title, "'title' must not be empty");
+        Assert.hasText(body, "'body' must not be empty");
         this.title = title;
         this.body = body;
     }

@@ -13,7 +13,7 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
-  db-local-main:
+  db-local-prod:
     image: mysql:8
     restart: unless-stopped
     ports:
