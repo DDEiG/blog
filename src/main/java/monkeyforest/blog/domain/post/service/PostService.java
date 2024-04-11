@@ -3,6 +3,7 @@ package monkeyforest.blog.domain.post.service;
 import lombok.RequiredArgsConstructor;
 import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.repository.PostRepository;
+import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -18,8 +19,8 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public Post createPost(Post post) {
-        return postRepository.save(post); // TODO: 회원정보 자동 저장
+    public Post createPost(CreatePostParameters parameters) {
+        return postRepository.save(parameters.toPost()); // TODO: 회원정보 자동 저장
     }
 
     @Transactional

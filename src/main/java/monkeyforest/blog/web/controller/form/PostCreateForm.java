@@ -1,10 +1,9 @@
 package monkeyforest.blog.web.controller.form;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import monkeyforest.blog.domain.post.entity.Post;
+import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
 
 import java.util.Random;
 
@@ -17,7 +16,7 @@ public class PostCreateForm {
     @Size(max = 20_000)
     private String body;
 
-    public Post toPost() {
-        return new Post(title, body, "username" + (new Random().nextInt(10) + 1));
+    public CreatePostParameters toParameters() {
+        return new CreatePostParameters(title, body, "username" + (new Random().nextInt(10) + 1));
     }
 }

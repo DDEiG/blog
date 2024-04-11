@@ -55,7 +55,7 @@ public class PostController {
         if (bindingResult.hasErrors()) {
             return "post-write";
         }
-        postService.createPost(postCreateForm.toPost());
+        postService.createPost(postCreateForm.toParameters());
         return "redirect:/posts";
     }
 

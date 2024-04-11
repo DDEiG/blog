@@ -3,6 +3,7 @@ package monkeyforest.blog.domain.post;
 import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
+import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,15 +33,18 @@ class PostServiceTest {
         var id = 1L;
         var title = "title";
         var body = "body";
-        Post inPost = Post.builder()
+        var writer = "username";
+        var parameters = new CreatePostParameters(title, body, writer);
+        Post post = Post.builder()
                 .id(id)
                 .title(title)
                 .body(body)
+                .writer(writer)
                 .build();
         given(postRepository.save(any()))
-                .willReturn(inPost);
+                .willReturn(post);
         // When
-        var post = postService.createPost(inPost);
+        post = postService.createPost(parameters);
         // Then
         assertThat(post.getId()).isEqualTo(id);
         assertThat(post.getTitle()).isEqualTo(title);
