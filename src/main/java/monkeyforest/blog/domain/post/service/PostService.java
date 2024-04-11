@@ -5,12 +5,9 @@ import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -24,13 +21,13 @@ public class PostService {
     }
 
     @Transactional
-    public Page<Post> findPosts(int pageNumber, int pageSize) {
-        return postRepository.findAll(PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id")));
+    public Page<Post> findPosts(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
 
     @Transactional
-    public Page<Post> searchPosts(String title, int pageNumber, int pageSize) {
-        return postRepository.searchPost(title + "%", PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, "id")));
+    public Page<Post> searchPosts(String title, Pageable pageable) {
+        return postRepository.searchPost(title + "%", pageable);
     }
 
     @Transactional

@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.NoSuchElementException;
@@ -57,7 +58,7 @@ class PostServiceTest {
         given(postRepository.findAll((Pageable) any()))
                 .willReturn(Page.empty());
         // When
-        Page<Post> posts = postService.findPosts(0, 10);
+        Page<Post> posts = postService.findPosts(PageRequest.of(0, 10));
         // Then
         assertThat(posts.getTotalElements()).isEqualTo(0);
         assertThat(posts.getTotalPages()).isEqualTo(1);
