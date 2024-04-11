@@ -18,10 +18,16 @@ spring:
     baseline-on-migrate: true
     locations: db/migration/common, db/migration/local
 
+  thymeleaf:
+    cache: false
   mvc:
     hiddenmethod:
       filter:
         enabled: true
+  web:
+    resources:
+      chain:
+        cache: false
 
 logging:
   level:
