@@ -48,7 +48,7 @@ public class PostController {
     @GetMapping("/post/write")
     public String postWrite(Model model) {
         model.addAttribute("post", new PostCreateForm());
-        return "post-write";
+        return "post-write"; // TODO: 생성과 수정은 같은 폼을 쓰는게 좋아보임
     }
 
     @PostMapping("/post/write")
