@@ -18,7 +18,7 @@
     <div>
         <h3 th:text="#{post.body}"></h3>
         <textarea cols="30" rows="10" th:field="*{body}"></textarea>
-        <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}" class="err-msg"></span>
+        <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}" class="err-msg"></p>
     </div>
     <button type="submit" th:text="#{post.save}"></button>
 </form>
