@@ -10,6 +10,7 @@
 </head>
 <body>
 <form th:action="@{/post/write}" th:object="${post}" method="post">
+    <div th:replace="~{fragments/forms :: fielderrors}"></div>
     <div>
         <span th:text="#{post.title}"></span>
         <input type="text" th:field="*{title}">

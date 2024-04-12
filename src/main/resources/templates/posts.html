@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<div th:insert="~{header :: nav}"></div>
+<div th:insert="~{fragments/header :: nav}"></div>
 <form th:action="@{/posts}" th:method="get">
     <label>
         <input name="title" type="text" th:value="${title}">
@@ -41,6 +41,6 @@
 <span th:text="${postPage.number}+1 + '/' + ${postPage.totalPages}" ></span>
 <button th:onclick="|location.href='@{/posts(title=${title}, page=${postPage.number}+1)}'|"
         th:disabled="${postPage.isLast()}">></button>
-<div th:insert="~{footer :: copy}"></div>
+<div th:insert="~{fragments/footer :: copy}"></div>
 </body>
 </html>
