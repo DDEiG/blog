@@ -33,7 +33,6 @@ class PostOptimisticLockingTest {
         executor.initialize();
 
         Post post = createPost();
-        Long postId = post.getId();
         var countDownLatch = new CountDownLatch(3);
         AtomicInteger number = new AtomicInteger(2);
         AtomicInteger failureCount = new AtomicInteger();
@@ -42,7 +41,7 @@ class PostOptimisticLockingTest {
             executor.execute(() -> {
                 try {
                     postService.updatePost(
-                            new UpdatePostParameters(postId, String.format("title%d", number.getAndIncrement()), String.format("body2%d", number.getAndIncrement())));
+                            new UpdatePostParameters(post.getId(), String.format("title%d", number.getAndIncrement()), String.format("body2%d", number.getAndIncrement()), post.getVersion()));
                 } catch (Exception e) {
                     failureCount.getAndIncrement();
                     exception.set(e);

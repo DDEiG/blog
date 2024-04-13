@@ -108,9 +108,10 @@ class PostServiceTest {
                                 .id(id)
                                 .title("title")
                                 .body("body")
+                                .version(0L)
                                 .build()));
         // When
-        var post = postService.updatePost(new UpdatePostParameters(id, newTitle, newBody));
+        var post = postService.updatePost(new UpdatePostParameters(id, newTitle, newBody, 0L));
         // Then
         assertThat(post.getTitle()).isEqualTo(newTitle);
         assertThat(post.getBody()).isEqualTo(newBody);
@@ -125,7 +126,7 @@ class PostServiceTest {
         given(postRepository.findById(id))
                 .willReturn(Optional.empty());
         // When
-        assertThatThrownBy(() -> postService.updatePost(new UpdatePostParameters(id, newTitle, newBody)))
+        assertThatThrownBy(() -> postService.updatePost(new UpdatePostParameters(id, newTitle, newBody, 0L)))
                 .isInstanceOf(NoSuchElementException.class);
     }
 

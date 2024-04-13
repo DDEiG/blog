@@ -32,10 +32,12 @@ public class Post extends BaseDateTimes {
         this.writer = writer;
     }
 
-    public void update(String title, String body) {
+    public void update(String title, String body, Long version) {
         Assert.hasText(title, "'title' must not be empty");
         Assert.hasText(body, "'body' must not be empty");
+        Assert.notNull(version, "'body' must not be null");
         this.title = title;
         this.body = body;
+        this.version = version;
     }
 }

@@ -17,16 +17,19 @@ public class PostUpdateForm {
     @NotBlank
     @Size(max = 20_000)
     private String body;
+    @NotNull
+    private Long version;
 
     public static PostUpdateForm from(Post post) {
         var instance = new PostUpdateForm();
         instance.id = post.getId();
         instance.title = post.getTitle();
         instance.body = post.getBody();
+        instance.version = post.getVersion();
         return instance;
     }
 
     public UpdatePostParameters toParameters() {
-        return new UpdatePostParameters(id, title, body);
+        return new UpdatePostParameters(id, title, body, version);
     }
 }

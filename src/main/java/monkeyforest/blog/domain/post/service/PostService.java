@@ -7,6 +7,7 @@ import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
 import monkeyforest.blog.domain.post.service.parameters.UpdatePostParameters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,9 @@ public class PostService {
     public Post updatePost(UpdatePostParameters parameters) {
         var post = postRepository.findById(parameters.id())
                 .orElseThrow();
+        if (!post.getVersion().equals(parameters.version())) {
+            throw new ObjectOptimisticLockingFailureException(Post.class, post.getId());
+        }
         parameters.update(post);
         return post;
     }
