@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
+import monkeyforest.blog.domain.post.service.parameters.UpdatePostParameters;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,10 +38,10 @@ public class PostService {
     }
 
     @Transactional
-    public Post updatePost(Long id, String title, String body) {
-        var post = postRepository.findById(id)
+    public Post updatePost(UpdatePostParameters parameters) {
+        var post = postRepository.findById(parameters.id())
                 .orElseThrow();
-        post.update(title, body);
+        parameters.update(post);
         return post;
     }
 

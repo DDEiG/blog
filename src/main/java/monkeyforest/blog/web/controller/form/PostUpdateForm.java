@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import monkeyforest.blog.domain.post.entity.Post;
+import monkeyforest.blog.domain.post.service.parameters.UpdatePostParameters;
 
 @Data
 public class PostUpdateForm {
@@ -24,5 +25,9 @@ public class PostUpdateForm {
         instance.title = post.getTitle();
         instance.body = post.getBody();
         return instance;
+    }
+
+    public UpdatePostParameters toParameters() {
+        return new UpdatePostParameters(id, title, body);
     }
 }

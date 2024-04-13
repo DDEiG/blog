@@ -4,6 +4,7 @@ import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
 import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
+import monkeyforest.blog.domain.post.service.parameters.UpdatePostParameters;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -109,7 +110,7 @@ class PostServiceTest {
                                 .body("body")
                                 .build()));
         // When
-        var post = postService.updatePost(id, newTitle, newBody);
+        var post = postService.updatePost(new UpdatePostParameters(id, newTitle, newBody));
         // Then
         assertThat(post.getTitle()).isEqualTo(newTitle);
         assertThat(post.getBody()).isEqualTo(newBody);
@@ -124,7 +125,7 @@ class PostServiceTest {
         given(postRepository.findById(id))
                 .willReturn(Optional.empty());
         // When
-        assertThatThrownBy(() -> postService.updatePost(id, newTitle, newBody))
+        assertThatThrownBy(() -> postService.updatePost(new UpdatePostParameters(id, newTitle, newBody)))
                 .isInstanceOf(NoSuchElementException.class);
     }
 

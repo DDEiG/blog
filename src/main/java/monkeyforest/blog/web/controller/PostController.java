@@ -72,7 +72,7 @@ public class PostController {
         if (bindingResult.hasErrors()) {
             return "post-edit";
         }
-        Post post = postService.updatePost(postUpdateForm.getId(), postUpdateForm.getTitle(), postUpdateForm.getBody());
+        Post post = postService.updatePost(postUpdateForm.toParameters());
         return "redirect:/posts/" + post.getId();
     }
 
