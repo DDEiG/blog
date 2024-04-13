@@ -20,6 +20,8 @@ public class Post extends BaseDateTimes {
     private String body;
     @Column(nullable = false, length = 30)
     private String writer;
+    @Version
+    private Long version;
 
     public Post(String title, String body, String writer) {
         Assert.hasText(title, "'title' must not be empty");
