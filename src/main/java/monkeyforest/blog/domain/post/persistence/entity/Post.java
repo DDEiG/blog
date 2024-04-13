@@ -1,4 +1,4 @@
-package monkeyforest.blog.domain.post.entity;
+package monkeyforest.blog.domain.post.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

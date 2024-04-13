@@ -1,7 +1,7 @@
 package monkeyforest.blog.domain.post;
 
-import monkeyforest.blog.domain.post.entity.Post;
-import monkeyforest.blog.domain.post.repository.PostRepository;
+import monkeyforest.blog.domain.post.persistence.entity.Post;
+import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
 import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
 import monkeyforest.blog.domain.post.service.parameters.UpdatePostParameters;

@@ -2,7 +2,7 @@ package monkeyforest.blog.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import monkeyforest.blog.domain.post.entity.Post;
+import monkeyforest.blog.domain.post.persistence.entity.Post;
 import monkeyforest.blog.domain.post.service.PostService;
 import monkeyforest.blog.web.controller.form.EditMode;
 import monkeyforest.blog.web.controller.form.PostCreateForm;

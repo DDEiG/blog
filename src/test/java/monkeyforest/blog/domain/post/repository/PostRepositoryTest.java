@@ -1,8 +1,8 @@
 package monkeyforest.blog.domain.post.repository;
 
 import monkeyforest.blog.domain.JpaConfig;
-import monkeyforest.blog.domain.post.entity.Post;
-import org.assertj.core.api.Assertions;
+import monkeyforest.blog.domain.post.persistence.entity.Post;
+import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = JpaConfig.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

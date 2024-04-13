@@ -1,6 +1,6 @@
 package monkeyforest.blog.domain.post.service.parameters;
 
-import monkeyforest.blog.domain.post.entity.Post;
+import monkeyforest.blog.domain.post.persistence.entity.Post;
 import org.springframework.util.Assert;
 
 public record UpdatePostParameters (Long id, String title, String body) {
