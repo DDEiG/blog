@@ -3,6 +3,7 @@ package monkeyforest.blog.domain.post.service;
 import lombok.RequiredArgsConstructor;
 import monkeyforest.blog.domain.post.persistence.entity.Post;
 import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
+import monkeyforest.blog.domain.post.service.exception.PostNotFoundException;
 import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
 import monkeyforest.blog.domain.post.service.parameters.UpdatePostParameters;
 import org.springframework.data.domain.Page;
@@ -35,7 +36,7 @@ public class PostService {
     @Transactional
     public Post findPost(Long id) {
         return postRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new PostNotFoundException(id));
     }
 
     @Transactional

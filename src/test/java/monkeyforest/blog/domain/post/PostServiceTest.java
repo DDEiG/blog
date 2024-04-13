@@ -3,6 +3,7 @@ package monkeyforest.blog.domain.post;
 import monkeyforest.blog.domain.post.persistence.entity.Post;
 import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
+import monkeyforest.blog.domain.post.service.exception.PostNotFoundException;
 import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
 import monkeyforest.blog.domain.post.service.parameters.UpdatePostParameters;
 import org.junit.jupiter.api.Test;
@@ -93,7 +94,7 @@ class PostServiceTest {
                 .willReturn(Optional.empty());
         // When
         assertThatThrownBy(() -> postService.findPost(1L))
-                        .isInstanceOf(NoSuchElementException.class);
+                        .isInstanceOf(PostNotFoundException.class);
     }
 
     @Test
