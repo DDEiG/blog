@@ -36,27 +36,27 @@ public class PostController {
         }
         model.addAttribute("postPage", postPage);
         model.addAttribute("title", title);
-        return "posts";
+        return "post/list";
     }
 
     @GetMapping("/posts/{id}")
     public String post(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
         model.addAttribute("post", post);
-        return "post";
+        return "post/detail";
     }
 
     @GetMapping("/post/write")
     public String postWrite(Model model) {
         model.addAttribute("post", new PostCreateForm());
         model.addAttribute("editMode", EditMode.CREATE);
-        return "post-edit";
+        return "post/edit";
     }
 
     @PostMapping("/post/write")
     public String writePost(@ModelAttribute("post") @Valid PostCreateForm postCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "post-edit";
+            return "post/edit";
         }
         postService.createPost(postCreateForm.toParameters());
         return "redirect:/posts";
@@ -67,13 +67,13 @@ public class PostController {
         Post post = postService.findPost(id);
         model.addAttribute("post", PostUpdateForm.from(post));
         model.addAttribute("editMode", EditMode.UPDATE);
-        return "post-edit";
+        return "post/edit";
     }
 
     @PostMapping("/posts/{id}/edit")
     public String editPost(@ModelAttribute("post") @Valid PostUpdateForm postUpdateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "post-edit";
+            return "post/edit";
         }
         Post post = postService.updatePost(postUpdateForm.toParameters());
         return "redirect:/posts/" + post.getId();
