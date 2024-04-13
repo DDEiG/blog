@@ -9,7 +9,9 @@
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-<form th:action="@{/posts/{id}/edit(id=*{id})}" th:object="${post}" method="post">
+<form th:object="${post}"
+      th:action="${editMode?.name() == 'UPDATE'} ? @{/posts/{id}/edit(id=*{id})} : @{/post/write}"
+      method="post">
     <div th:replace="~{fragments/forms :: fielderrors}"></div>
     <div>
         <span th:text="#{post.title}"></span>
@@ -24,7 +26,7 @@
     <button type="submit" th:text="#{post.save}"></button>
 </form>
 
-<form th:action="@{/posts/{id}(id=${post.id})}">
+<form th:action="${editMode?.name() == 'UPDATE'} ? @{/posts/{id}(id=${post.id})} : @{/posts}" >
     <button type="submit" th:text="#{post.cancel}"></button>
 </form>
 </body>

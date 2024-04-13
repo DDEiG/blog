@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import monkeyforest.blog.domain.post.entity.Post;
 import monkeyforest.blog.domain.post.service.PostService;
+import monkeyforest.blog.web.controller.form.EditMode;
 import monkeyforest.blog.web.controller.form.PostCreateForm;
 import monkeyforest.blog.web.controller.form.PostUpdateForm;
 import org.springframework.data.domain.Page;
@@ -48,13 +49,14 @@ public class PostController {
     @GetMapping("/post/write")
     public String postWrite(Model model) {
         model.addAttribute("post", new PostCreateForm());
-        return "post-write"; // TODO: 생성과 수정은 같은 폼을 쓰는게 좋아보임
+        model.addAttribute("editMode", EditMode.CREATE);
+        return "post-edit";
     }
 
     @PostMapping("/post/write")
     public String writePost(@ModelAttribute("post") @Valid PostCreateForm postCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "post-write";
+            return "post-edit";
         }
         postService.createPost(postCreateForm.toParameters());
         return "redirect:/posts";
@@ -64,6 +66,7 @@ public class PostController {
     public String postEdit(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
         model.addAttribute("post", PostUpdateForm.from(post));
+        model.addAttribute("editMode", EditMode.UPDATE);
         return "post-edit";
     }
 
