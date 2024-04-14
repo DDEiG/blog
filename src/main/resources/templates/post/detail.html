@@ -17,7 +17,7 @@
     <textarea name="body" id="" cols="30" rows="10" th:text="${post.body}" th:readonly="true"></textarea>
 </div>
 
-<form th:action="@{/posts/{id}/edit(id=${post.id})}">
+<form th:action="@{/posts/{id}/modify(id=${post.id})}">
     <button type="submit" th:text="#{post.modify}"></button>
 </form>
 

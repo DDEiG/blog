@@ -53,7 +53,7 @@ public class PostController {
         return "post/edit";
     }
 
-    @PostMapping("/post/write")
+    @PostMapping("/post")
     public String writePost(@ModelAttribute("post") @Valid PostCreateForm postCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "post/edit";
@@ -62,7 +62,7 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    @GetMapping("/posts/{id}/edit")
+    @GetMapping("/posts/{id}/modify")
     public String postEdit(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
         model.addAttribute("post", PostUpdateForm.from(post));
@@ -70,7 +70,7 @@ public class PostController {
         return "post/edit";
     }
 
-    @PostMapping("/posts/{id}/edit")
+    @PutMapping("/posts/{id}")
     public String editPost(@ModelAttribute("post") @Valid PostUpdateForm postUpdateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "post/edit";
