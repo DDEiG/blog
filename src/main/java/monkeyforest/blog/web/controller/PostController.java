@@ -28,16 +28,15 @@ public class PostController {
     public String posts(@RequestParam(defaultValue = "") String title,
                         @PageableDefault @SortDefault.SortDefaults({@SortDefault(value = "id", direction = Sort.Direction.DESC)}) Pageable pageable,
                         Model model) {
-        throw new RuntimeException();
-//        Page<Post> postPage;
-//        if (hasText(title)) {
-//            postPage = postService.searchPosts(title, pageable);
-//        } else {
-//            postPage = postService.findPosts(pageable);
-//        }
-//        model.addAttribute("postPage", postPage);
-//        model.addAttribute("title", title);
-//        return "post/list";
+        Page<Post> postPage;
+        if (hasText(title)) {
+            postPage = postService.searchPosts(title, pageable);
+        } else {
+            postPage = postService.findPosts(pageable);
+        }
+        model.addAttribute("postPage", postPage);
+        model.addAttribute("title", title);
+        return "post/list";
     }
 
     @GetMapping("/posts/{id}")
