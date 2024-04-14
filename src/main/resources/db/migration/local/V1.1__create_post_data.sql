@@ -1,0 +1,15 @@
+insert into post (title,body,writer, created_at,last_modified_at) values ("title1", "body1", "username1", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title2", "body2", "username2", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title3", "body3", "username3", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title4", "body4", "username4", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title5", "body5", "username5", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title6", "body6", "username6", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title7", "body7", "username7", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title8", "body8", "username8", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title9", "body9", "username9", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title10", "body10", "username10", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title11", "body11", "username11", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title12", "body12", "username12", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title13", "body13", "username13", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title14", "body14", "username14", now(), now());
+insert into post (title,body,writer, created_at,last_modified_at) values ("title15", "body15", "username15", now(), now());

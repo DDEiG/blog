@@ -7,18 +7,27 @@ spring:
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
         format_sql: true
         show_sql: false
         highlight_sql: true
 #        use_sql_comments: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: db/migration/common, db/migration/local
+
   mvc:
     hiddenmethod:
       filter:
         enabled: true
-  messages:
-    basename: errors, messages
+  thymeleaf:
+    cache: false
+  web:
+    resources:
+      chain:
+        cache: false
 
 logging:
   level:

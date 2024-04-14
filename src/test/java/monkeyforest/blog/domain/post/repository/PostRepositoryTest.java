@@ -1,8 +1,8 @@
 package monkeyforest.blog.domain.post.repository;
 
 import monkeyforest.blog.domain.JpaConfig;
-import monkeyforest.blog.domain.post.entity.Post;
-import org.assertj.core.api.Assertions;
+import monkeyforest.blog.domain.post.persistence.entity.Post;
+import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = JpaConfig.class))
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -25,16 +24,8 @@ class PostRepositoryTest {
     @Test
     void pagination() {
         // Given
-        Post post1 = postRepository.save(Post.builder()
-                .title("title1")
-                .body("body1")
-                .writer("username1")
-                .build());
-        Post post2 = postRepository.save(Post.builder()
-                .title("title2")
-                .body("body2")
-                .writer("username2")
-                .build());
+        Post post1 = postRepository.save(new Post("title1", "body1", "username1"));
+        Post post2 = postRepository.save(new Post("title2", "body2", "username2"));
         // When
         Page<Post> page = postRepository.findAll(PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "id")));
         // Then

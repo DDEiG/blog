@@ -1,6 +1,6 @@
-package monkeyforest.blog.domain.post.repository;
+package monkeyforest.blog.domain.post.persistence.repository;
 
-import monkeyforest.blog.domain.post.entity.Post;
+import monkeyforest.blog.domain.post.persistence.entity.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

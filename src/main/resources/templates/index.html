@@ -6,11 +6,12 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-<div th:replace="~{header :: nav}"></div>
+<div th:replace="~{fragments/header :: nav}"></div>
 <h1 th:text="#{home.title}"></h1>
 <h2 th:utext="#{home.sub-title}"></h2>
-<div th:replace="~{footer :: copy}"></div>
+<div th:replace="~{fragments/footer :: copy}"></div>
 </body>
 </html>

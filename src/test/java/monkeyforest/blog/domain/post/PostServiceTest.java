@@ -1,14 +1,18 @@
 package monkeyforest.blog.domain.post;
 
-import monkeyforest.blog.domain.post.entity.Post;
-import monkeyforest.blog.domain.post.repository.PostRepository;
+import monkeyforest.blog.domain.post.persistence.entity.Post;
+import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
+import monkeyforest.blog.domain.post.service.exception.PostNotFoundException;
+import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
+import monkeyforest.blog.domain.post.service.parameters.UpdatePostParameters;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.NoSuchElementException;
@@ -32,15 +36,18 @@ class PostServiceTest {
         var id = 1L;
         var title = "title";
         var body = "body";
-        Post inPost = Post.builder()
+        var writer = "username";
+        var parameters = new CreatePostParameters(title, body, writer);
+        Post post = Post.builder()
                 .id(id)
                 .title(title)
                 .body(body)
+                .writer(writer)
                 .build();
         given(postRepository.save(any()))
-                .willReturn(inPost);
+                .willReturn(post);
         // When
-        var post = postService.createPost(inPost);
+        post = postService.createPost(parameters);
         // Then
         assertThat(post.getId()).isEqualTo(id);
         assertThat(post.getTitle()).isEqualTo(title);
@@ -53,7 +60,7 @@ class PostServiceTest {
         given(postRepository.findAll((Pageable) any()))
                 .willReturn(Page.empty());
         // When
-        Page<Post> posts = postService.findPosts(0, 10);
+        Page<Post> posts = postService.findPosts(PageRequest.of(0, 10));
         // Then
         assertThat(posts.getTotalElements()).isEqualTo(0);
         assertThat(posts.getTotalPages()).isEqualTo(1);
@@ -87,7 +94,7 @@ class PostServiceTest {
                 .willReturn(Optional.empty());
         // When
         assertThatThrownBy(() -> postService.findPost(1L))
-                        .isInstanceOf(NoSuchElementException.class);
+                        .isInstanceOf(PostNotFoundException.class);
     }
 
     @Test
@@ -102,9 +109,10 @@ class PostServiceTest {
                                 .id(id)
                                 .title("title")
                                 .body("body")
+                                .version(0L)
                                 .build()));
         // When
-        var post = postService.updatePost(id, newTitle, newBody);
+        var post = postService.updatePost(new UpdatePostParameters(id, newTitle, newBody, 0L));
         // Then
         assertThat(post.getTitle()).isEqualTo(newTitle);
         assertThat(post.getBody()).isEqualTo(newBody);
@@ -119,7 +127,7 @@ class PostServiceTest {
         given(postRepository.findById(id))
                 .willReturn(Optional.empty());
         // When
-        assertThatThrownBy(() -> postService.updatePost(id, newTitle, newBody))
+        assertThatThrownBy(() -> postService.updatePost(new UpdatePostParameters(id, newTitle, newBody, 0L)))
                 .isInstanceOf(NoSuchElementException.class);
     }
 

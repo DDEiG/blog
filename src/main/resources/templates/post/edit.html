@@ -6,23 +6,28 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-<form th:action="@{/posts/{id}/edit(id=*{id})}" th:object="${post}" method="post">
+<form th:object="${post}"
+      th:action="${editMode?.name() == 'UPDATE'} ? @{/posts/{id}(id=*{id})} : @{/post}"
+      th:method="${editMode?.name() == 'UPDATE'} ? 'put' : 'post'">
+    <div th:replace="~{fragments/forms :: fielderrors}"></div>
     <div>
         <span th:text="#{post.title}"></span>
         <input type="text" th:field="*{title}">
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="err-msg"></p>
     </div>
     <div>
         <h3 th:text="#{post.body}"></h3>
         <textarea cols="30" rows="10" th:field="*{body}"></textarea>
-        <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></span>
+        <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}" class="err-msg"></p>
     </div>
+    <input type="hidden" th:field="*{version}" th:if="${editMode?.name() == 'UPDATE'}">
     <button type="submit" th:text="#{post.save}"></button>
 </form>
 
-<form th:action="@{/posts/{id}(id=${post.id})}">
+<form th:action="${editMode?.name() == 'UPDATE'} ? @{/posts/{id}(id=${post.id})} : @{/posts}">
     <button type="submit" th:text="#{post.cancel}"></button>
 </form>
 </body>
