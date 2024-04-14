@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="#{error}">Error</title>
+</head>
+<body>
+<p th:text="#{error.5xx}" class="mb-6">There was an error, please try again. Contact the administrator if the problem persists.</p>
+<div th:replace="~{fragments/footer::email}"></div>
+</body>
+</html>
