@@ -1,9 +1,9 @@
 package monkeyforest.blog.config;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +13,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration(proxyBeanMethods = false)
-@RequiredArgsConstructor
+@EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
     // TODO: css 파일 권한 풀어줘야함. 적용안되고있음
 
@@ -41,11 +41,6 @@ public class WebSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/post/write").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/post").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/posts/{id}/modify").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/posts/{id}").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/posts/{id}").hasRole("ADMIN")
                         .requestMatchers("/").permitAll()
                         .requestMatchers(HttpMethod.GET, "/posts").permitAll()
                         .requestMatchers(HttpMethod.GET, "/posts/{id}").permitAll()

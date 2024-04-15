@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,6 +51,7 @@ public class PostController {
     }
 
     @GetMapping("/post/write")
+    @Secured("ROLE_ADMIN")
     public String postWrite(Model model) {
         model.addAttribute("post", new PostCreateForm());
         model.addAttribute("editMode", EditMode.CREATE);
@@ -57,6 +59,7 @@ public class PostController {
     }
 
     @PostMapping("/post")
+    @Secured("ROLE_ADMIN")
     public String writePost(@ModelAttribute("post") @Valid PostCreateForm postCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "post/edit";
@@ -66,6 +69,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}/modify")
+    @Secured("ROLE_ADMIN")
     public String postEdit(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
         model.addAttribute("post", PostUpdateForm.from(post));
@@ -74,6 +78,7 @@ public class PostController {
     }
 
     @PutMapping("/posts/{id}")
+    @Secured("ROLE_ADMIN")
     public String editPost(@ModelAttribute("post") @Valid PostUpdateForm postUpdateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "post/edit";
@@ -83,6 +88,7 @@ public class PostController {
     }
 
     @DeleteMapping("/posts/{id}")
+    @Secured("ROLE_ADMIN")
     public String deletePost(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         var post = postService.findPost(id);
         postRepository.delete(post);
