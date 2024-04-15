@@ -49,9 +49,4 @@ public class PostService {
         parameters.update(post);
         return post;
     }
-
-    @Transactional
-    public void deletePost(Long id) {
-        postRepository.deleteById(id);
-    }
 }

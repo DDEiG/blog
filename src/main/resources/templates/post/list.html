@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
 <div th:insert="~{fragments/header :: nav}"></div>
@@ -16,6 +17,7 @@
     <input type="submit" th:value="#{posts.search}">
 </form>
 <button th:onclick="|location.href='@{/post/write}'|" th:text="#{posts.write}"></button>
+<p th:if="${deletedPostTitle}" th:text="#{posts.delete.success(${deletedPostTitle})}" class="impt-msg"></p>
 <table>
     <tr>
         <th th:text="#{posts.table.number}"></th>

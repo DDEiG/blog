@@ -3,6 +3,7 @@ package monkeyforest.blog.web.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import monkeyforest.blog.domain.post.persistence.entity.Post;
+import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
 import monkeyforest.blog.web.controller.form.EditMode;
 import monkeyforest.blog.web.controller.form.PostCreateForm;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import static org.springframework.util.StringUtils.hasText;
 
@@ -23,6 +25,7 @@ import static org.springframework.util.StringUtils.hasText;
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
+    private final PostRepository postRepository;
 
     @GetMapping("/posts")
     public String posts(@RequestParam(defaultValue = "") String title,
@@ -80,8 +83,10 @@ public class PostController {
     }
 
     @DeleteMapping("/posts/{id}")
-    public String deletePost(@PathVariable Long id) {
-        postService.deletePost(id);
+    public String deletePost(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        var post = postService.findPost(id);
+        postRepository.delete(post);
+        redirectAttributes.addFlashAttribute("deletedPostTitle", post.getTitle());
         return "redirect:/posts";
     }
 }

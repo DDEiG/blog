@@ -130,9 +130,4 @@ class PostServiceTest {
         assertThatThrownBy(() -> postService.updatePost(new UpdatePostParameters(id, newTitle, newBody, 0L)))
                 .isInstanceOf(NoSuchElementException.class);
     }
-
-    @Test
-    void delete() {
-        postService.deletePost(1L);
-    }
 }
