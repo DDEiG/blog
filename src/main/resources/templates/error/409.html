@@ -9,8 +9,9 @@
     <title th:text="#{error}">Error</title>
 </head>
 <body>
-<p th:text="#{error.version.conflict}" class="mb-6">Somebody else has edited the same thing as you.
-    Please reload the
-    page and redo your edit.</p>
+<p th:text="#{error.page.conflict}">Error message</p>
+<a th:href="@{/}">
+    <span th:text="#{back.to.home.page}">Home</span>
+</a>
 </body>
 </html>

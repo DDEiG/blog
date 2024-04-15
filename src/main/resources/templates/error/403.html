@@ -9,10 +9,10 @@
     <title th:text="#{error}">Error</title>
 </head>
 <body>
-<p th:text="#{error.page.server-error}" class="mb-6">Error message</p>
+<p th:text="#{error.page.forbidden}">Error message</p>
 <a th:href="@{/}">
     <span th:text="#{back.to.home.page}">Home</span>
 </a>
-<div th:replace="~{fragments/footer::email}"></div>
+<span></span>
 </body>
 </html>
