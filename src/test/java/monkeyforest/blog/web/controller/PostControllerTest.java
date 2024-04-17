@@ -1,5 +1,6 @@
 package monkeyforest.blog.web.controller;
 
+import monkeyforest.blog.domain.post.persistence.entity.Post;
 import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
 import org.junit.jupiter.api.Test;
@@ -8,13 +9,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
@@ -32,6 +32,7 @@ class PostControllerTest {
                 .willReturn(Page.empty());
         mockMvc.perform(get("/posts")
                         .param("title", "post1"))
+                .andDo(print()) // TODO: 삭제
                 .andExpect(status().isOk());
     }
 
@@ -41,6 +42,14 @@ class PostControllerTest {
                 .willReturn(Page.empty());
         mockMvc.perform(get("/posts"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void testPost() throws Exception {
+        given(postService.findPost(any()))
+                .willReturn(Post.builder().build());
+        mockMvc.perform(get("/posts/{id}", 1L))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }
