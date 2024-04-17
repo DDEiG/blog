@@ -17,9 +17,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 class PostControllerTest {
@@ -62,6 +62,17 @@ class PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("post", new PostCreateForm()))
                 .andExpect(model().attribute("editMode", EditMode.CREATE));
+    }
+
+    @Test
+    void testWritePost() throws Exception {
+        var form = new PostCreateForm();
+        form.setTitle("haha");
+        form.setBody("hoho");
+        mockMvc.perform(post("/post")
+                        .flashAttr("post", form))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/posts"));
     }
 
 }
