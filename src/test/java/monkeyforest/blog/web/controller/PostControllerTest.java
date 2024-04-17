@@ -3,6 +3,9 @@ package monkeyforest.blog.web.controller;
 import monkeyforest.blog.domain.post.persistence.entity.Post;
 import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
+import monkeyforest.blog.domain.post.service.parameters.CreatePostParameters;
+import monkeyforest.blog.web.controller.form.EditMode;
+import monkeyforest.blog.web.controller.form.PostCreateForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
@@ -49,7 +53,15 @@ class PostControllerTest {
         given(postService.findPost(any()))
                 .willReturn(Post.builder().build());
         mockMvc.perform(get("/posts/{id}", 1L))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testPostWrite() throws Exception {
+        mockMvc.perform(get("/post/write"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("post", new PostCreateForm()))
+                .andExpect(model().attribute("editMode", EditMode.CREATE));
     }
 
 }
