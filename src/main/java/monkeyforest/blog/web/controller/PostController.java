@@ -66,7 +66,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}/modify")
-    public String postEdit(@PathVariable Long id, Model model) {
+    public String postModify(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
         model.addAttribute("post", PostUpdateForm.from(post));
         model.addAttribute("editMode", EditMode.UPDATE);
