@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -127,4 +128,13 @@ class PostControllerTest {
                 .andExpect(view().name("post/edit"));
     }
 
+    @Test
+    void testDeletePost() throws Exception {
+        given(postService.findPost(any()))
+                .willReturn(Post.builder().title("haha").build());
+        mockMvc.perform(delete("/posts/{id}", 1L))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(MockMvcResultMatchers.flash().attribute("deletedPostTitle", "haha"))
+                .andExpect(redirectedUrl("/posts"));
+    }
 }
