@@ -42,6 +42,8 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll()
+                        .requestMatchers("/users/create").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/users/*").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/posts").permitAll()
                         .requestMatchers(HttpMethod.GET, "/posts/{id}").permitAll()
                         // TODO: 로그인을 해야 댓글을 달 수 있도록 권한설정(ROLE_USER)
