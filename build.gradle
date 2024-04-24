@@ -41,3 +41,9 @@ tasks.named('bootBuildImage') {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+processResources {
+    filesMatching('**/application.yml') {
+        expand(project.properties)
+    }
+}

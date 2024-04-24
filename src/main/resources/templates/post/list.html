@@ -44,5 +44,12 @@
 <button th:onclick="|location.href='@{/posts(title=${title}, page=${postPage.number}+1)}'|"
         th:disabled="${postPage.isLast()}">></button>
 <div th:insert="~{fragments/footer :: copy}"></div>
+
+<div>
+    <span th:text="${version}"></span>
+</div>
+<div>
+    <span th:text="${group}"></span>
+</div>
 </body>
 </html>
