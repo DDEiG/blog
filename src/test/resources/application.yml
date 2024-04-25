@@ -1,3 +1,7 @@
+application:
+  version: ${version}
+  group: ${group}
+
 spring:
   profiles:
     active: test
