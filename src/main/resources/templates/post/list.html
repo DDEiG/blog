@@ -37,6 +37,7 @@
     </tr>
 </table>
 <!--TODO: 개수가 0일떄 표시가 이상함-->
+<!--TODO: Fragment로 묶기-->
 <button th:onclick="|location.href='@{/posts(title=${title}, page=${postPage.number}-1)}'|"
         th:disabled="${postPage.isFirst()}"><</button>
 <span th:text="${postPage.number}+1 + '/' + ${postPage.totalPages}" ></span>
