@@ -20,21 +20,20 @@
 <p th:if="${deletedPostTitle}" th:text="#{posts.delete.success(${deletedPostTitle})}" class="impt-msg"></p>
 <table>
     <tr>
-        <th th:text="#{posts.table.number}"></th>
-        <th th:text="#{posts.table.title}"></th>
-        <th th:text="#{posts.table.writer}"></th>
-        <th th:text="#{posts.table.created-at}"></th>
-        <th th:text="#{posts.table.updated-at}"></th>
+        <th th:replace="~{fragments/table :: header(#{posts.table.number})}"></th>
+        <th th:replace="~{fragments/table :: header(#{posts.table.title})}"></th>
+        <th th:replace="~{fragments/table :: header(#{posts.table.writer})}"></th>
+        <th th:replace="~{fragments/table :: header(#{posts.table.created-at})}"></th>
+        <th th:replace="~{fragments/table :: header(#{posts.table.updated-at})}"></th>
     </tr>
     <tr th:each="post, i : ${postPage.content}">
-        <td th:text="${i.count}"></td>
-        <td th:text="${post.title}"></td>
-        <td th:text="${post.writer}"></td>
-        <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}"></td>
-        <td th:text="${#temporals.format(post.lastModifiedAt, 'yyyy-MM-dd')}"></td>
-        <td>
-            <a th:href="@{/posts/{id}(id=${post.id})}" role="button" th:text="#{posts.move}"></a>
-        </td>
+        <td th:replace="~{fragments/table :: data(${i.count})}"></td>
+        <td th:replace="~{fragments/table :: data(${post.title})}"></td>
+        <td th:replace="~{fragments/table :: data(${post.writer})}"></td>
+        <td th:replace="~{fragments/table :: data(${#temporals.format(post.createdAt, 'yyyy-MM-dd')})}"></td>
+        <td th:replace="~{fragments/table :: data(${#temporals.format(post.lastModifiedAt, 'yyyy-MM-dd')})}"></td>
+<!--        TODO: th:block 써서 권한 처리-->
+        <td th:replace="~{fragments/table :: link(#{posts.move}, @{/posts/{id}(id=${post.id})})}"></td>
     </tr>
 </table>
 <!--TODO: 개수가 0일떄 표시가 이상함-->
