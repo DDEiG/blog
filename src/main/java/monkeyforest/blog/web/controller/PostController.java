@@ -7,7 +7,7 @@ import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
 import monkeyforest.blog.web.controller.form.EditMode;
 import monkeyforest.blog.web.controller.form.PostCreateForm;
-import monkeyforest.blog.web.controller.form.PostUpdateForm;
+import monkeyforest.blog.web.controller.form.PostModifyForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -66,19 +66,19 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}/modify")
-    public String postEdit(@PathVariable Long id, Model model) {
+    public String postModify(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
-        model.addAttribute("post", PostUpdateForm.from(post));
+        model.addAttribute("post", PostModifyForm.from(post));
         model.addAttribute("editMode", EditMode.UPDATE);
         return "post/edit";
     }
 
     @PutMapping("/posts/{id}")
-    public String editPost(@ModelAttribute("post") @Valid PostUpdateForm postUpdateForm, BindingResult bindingResult) {
+    public String modifyPost(@ModelAttribute("post") @Valid PostModifyForm postModifyForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "post/edit";
         }
-        Post post = postService.updatePost(postUpdateForm.toParameters());
+        Post post = postService.updatePost(postModifyForm.toParameters());
         return "redirect:/posts/" + post.getId();
     }
 

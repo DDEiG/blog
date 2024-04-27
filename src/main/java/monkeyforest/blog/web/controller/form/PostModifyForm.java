@@ -8,7 +8,7 @@ import monkeyforest.blog.domain.post.persistence.entity.Post;
 import monkeyforest.blog.domain.post.service.parameters.UpdatePostParameters;
 
 @Data
-public class PostUpdateForm {
+public class PostModifyForm {
     @NotNull
     private Long id;
     @NotBlank
@@ -20,8 +20,8 @@ public class PostUpdateForm {
     @NotNull
     private Long version;
 
-    public static PostUpdateForm from(Post post) {
-        var instance = new PostUpdateForm();
+    public static PostModifyForm from(Post post) {
+        var instance = new PostModifyForm();
         instance.id = post.getId();
         instance.title = post.getTitle();
         instance.body = post.getBody();
