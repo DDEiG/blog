@@ -32,19 +32,24 @@
         <td th:replace="~{fragments/table :: data(${post.writer})}"></td>
         <td th:replace="~{fragments/table :: data(${#temporals.format(post.createdAt, 'yyyy-MM-dd')})}"></td>
         <td th:replace="~{fragments/table :: data(${#temporals.format(post.lastModifiedAt, 'yyyy-MM-dd')})}"></td>
-<!--        TODO: th:block 써서 권한 처리-->
+        <!--        TODO: th:block 써서 권한 처리-->
         <td th:replace="~{fragments/table :: link(#{posts.move}, @{/posts/{id}(id=${post.id})})}"></td>
     </tr>
 </table>
 <!--TODO: 개수가 0일떄 표시가 이상함-->
 <!--TODO: Fragment로 묶기-->
-<button th:onclick="|location.href='@{/posts(title=${title}, page=${postPage.number}-1)}'|"
-        th:disabled="${postPage.isFirst()}"><</button>
-<span th:text="${postPage.number}+1 + '/' + ${postPage.totalPages}" ></span>
-<button th:onclick="|location.href='@{/posts(title=${title}, page=${postPage.number}+1)}'|"
-        th:disabled="${postPage.isLast()}">></button>
-<div th:insert="~{fragments/footer :: copy}"></div>
+<div>
+    <button th:onclick="|location.href='@{/posts(title=${title}, page=${postPage.number}-1)}'|"
+            th:disabled="${postPage.isFirst()}"><
+    </button>
+    <span th:if="${postPage.totalPages == 0}" th:text="${postPage.number} + 1 + '/' + 1"></span>
+    <span th:if="${postPage.totalPages != 0}" th:text="${postPage.number} + 1 + '/' + ${postPage.totalPages}"></span>
+    <button th:onclick="|location.href='@{/posts(title=${title}, page=${postPage.number}+1)}'|"
+            th:disabled="${postPage.isLast()}">>
+    </button>
+</div>
 
+<div th:insert="~{fragments/footer :: copy}"></div>
 <div>
     <span th:text="${version}"></span>
 </div>
