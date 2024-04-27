@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("게시글 수정 동시성 테스트(낙관적 락)")
-@SpringBootTest(properties = {"version = 1.0.0", "group = monkeyforest"})
+@SpringBootTest
 class PostOptimisticLockingTest {
     @Autowired
     PostService postService;

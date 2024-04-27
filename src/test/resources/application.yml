@@ -1,6 +1,6 @@
 application:
-  version: ${version}
-  group: ${group}
+  version: 0.0.1_TEST
+  group: monkeyforest
 
 spring:
   profiles:
