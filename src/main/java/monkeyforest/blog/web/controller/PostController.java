@@ -50,7 +50,7 @@ public class PostController {
     }
 
     @GetMapping("/post/write")
-    public String postWrite(Model model) {
+    public String writePostForm(Model model) {
         model.addAttribute("post", new PostCreateForm());
         model.addAttribute("editMode", EditMode.CREATE);
         return "post/edit";
@@ -66,7 +66,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}/modify")
-    public String postModify(@PathVariable Long id, Model model) {
+    public String modifyPostForm(@PathVariable Long id, Model model) {
         Post post = postService.findPost(id);
         model.addAttribute("post", PostModifyForm.from(post));
         model.addAttribute("editMode", EditMode.UPDATE);
