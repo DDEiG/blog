@@ -59,7 +59,7 @@ class PostControllerTest {
     }
 
     @Test
-    void testPostWrite() throws Exception {
+    void testWritePostForm() throws Exception {
         mockMvc.perform(get("/post/write"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("post", new PostCreateForm()))
@@ -89,7 +89,7 @@ class PostControllerTest {
     }
 
     @Test
-    void testPostModify() throws Exception {
+    void testModifyPostForm() throws Exception {
         given(postService.findPost(any()))
                 .willReturn(Post.builder().build());
         mockMvc.perform(get("/posts/{id}/modify", 1L))
