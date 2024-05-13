@@ -8,9 +8,6 @@ import monkeyforest.blog.domain.post.service.PostService;
 import monkeyforest.blog.web.controller.form.EditMode;
 import monkeyforest.blog.web.controller.form.PostCreateForm;
 import monkeyforest.blog.web.controller.form.PostModifyForm;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -64,20 +61,8 @@ public class PostController {
         if (bindingResult.hasErrors()) {
             return "post/edit";
         }
-        System.out.println("postCreateForm.getBody() = " + markdownToHTML(postCreateForm.getBody()));
         postService.createPost(postCreateForm.toParameters());
         return "redirect:/posts";
-    }
-
-    private String markdownToHTML(String markdown) {
-        Parser parser = Parser.builder()
-                .build();
-
-        Node document = parser.parse(markdown);
-        HtmlRenderer renderer = HtmlRenderer.builder()
-                .build();
-
-        return renderer.render(document);
     }
 
     @GetMapping("/posts/{id}/modify")
