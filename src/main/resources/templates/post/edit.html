@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
+    <script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
 </head>
 <body>
 <form th:object="${post}"
@@ -27,8 +28,20 @@
     <button type="submit" th:text="#{post.save}"></button>
 </form>
 
+<div id="view-area">
+</div>
+
 <form th:action="${editMode?.name() == 'UPDATE'} ? @{/posts/{id}(id=${post.id})} : @{/posts}">
     <button type="submit" th:text="#{post.cancel}"></button>
 </form>
 </body>
+
+<script>
+    const converter = new showdown.Converter()
+    const body = document.getElementById('body');
+    const convertedBody = document.getElementById('view-area');
+
+    convertedBody.innerHTML = converter.makeHtml(body.value)
+    body.addEventListener("input", () => convertedBody.innerHTML = converter.makeHtml(body.value))
+</script>
 </html>

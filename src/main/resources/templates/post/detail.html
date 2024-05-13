@@ -6,15 +6,18 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
 </head>
 <body>
 <div>
     <span th:text="#{post.title}"></span>
     <input type="text" name="title" th:value="${post.title}" th:readonly="true">
 </div>
-<div>
+<div hidden="hidden">
     <h3 th:text="#{post.body}"></h3>
-    <textarea name="body" id="" cols="30" rows="10" th:text="${post.body}" th:readonly="true"></textarea>
+    <textarea name="body" id="body" cols="30" rows="10" th:text="${post.body}" th:readonly="true"></textarea>
+</div>
+<div id="view-area">
 </div>
 
 <form th:action="@{/posts/{id}/modify(id=${post.id})}">
@@ -29,4 +32,12 @@
     <button type="submit" th:text="#{post.list}"></button>
 </form>
 </body>
+
+<script>
+    const converter = new showdown.Converter()
+    const body = document.getElementById('body');
+    const convertedBody = document.getElementById('view-area');
+    convertedBody.innerHTML = converter.makeHtml(body.value)
+</script>
+
 </html>
