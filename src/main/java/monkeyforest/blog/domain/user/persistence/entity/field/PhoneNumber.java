@@ -1,4 +1,4 @@
-package monkeyforest.blog.domain.user.persistence.entity;
+package monkeyforest.blog.domain.user.persistence.entity.field;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

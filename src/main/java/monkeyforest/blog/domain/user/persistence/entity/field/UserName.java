@@ -1,4 +1,4 @@
-package monkeyforest.blog.domain.user.persistence.entity;
+package monkeyforest.blog.domain.user.persistence.entity.field;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
@@ -18,6 +18,10 @@ public class UserName {
         Assert.hasText(lastName, "lastName cannot be blank");
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return String.format("%s %s", firstName, lastName);
     }
 
 }
