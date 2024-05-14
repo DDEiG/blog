@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Users</title>
+</head>
+<body>
+    <div>
+        <h1 th:text="#{user.create}"></h1>
+    </div>
+    <div>
+        <div>
+            <div>
+                <form th:object="${user}"
+                      th:action="@{/users/create}"
+                      method="post">
+                    <div>
+                        <div th:replace="fragments/forms :: fielderrors"></div>
+                        <div>
+                            <div>
+                                <label th:text="#{user.gender}">
+                                    Gender
+                                </label>
+                                <div>
+                                    <th:block th:each="possibleGender,iter : ${genders}">
+                                        <input type="radio"
+                                               th:id="${'gender-'+possibleGender}"
+                                               th:field="*{gender}"
+                                               th:value="${possibleGender}"
+                                               th:classappend="${iter.index > 0 ?'ml-4':''}">
+                                        <label th:for="${'gender-'+possibleGender}"
+                                               th:text="#{'Gender.'+${possibleGender}}">
+                                        </label>
+                                    </th:block>
+                                    <p th:if="${#fields.hasErrors('gender')}"
+                                       th:text="${#strings.listJoin(#fields.errors('gender'), ', ')}">
+                                        Gender validation error message(s).
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- tag::firstname[] -->
+                            <div class="sm:col-span-3">
+                                <label th:text="#{user.firstName}">
+                                    First name
+                                </label>
+                                <div>
+                                    <input id="firstName"
+                                           type="text"
+                                           th:field="*{firstName}"
+                                           th:classappend="${#fields.hasErrors('firstName')?'border-red-300 focus:border-red-300 focus:ring-red-500':'focus:ring-green-500 focus:border-green-500'}">
+                                    <div th:if="${#fields.hasErrors('firstName')}"></div>
+                                </div>
+                                <p th:if="${#fields.hasErrors('firstName')}"
+                                   th:text="${#strings.listJoin(#fields.errors('firstName'), ', ')}">
+                                    First name validation error message(s).
+                                </p>
+                            </div>
+                            <!-- end::firstname[] -->
+
+                            <div class="sm:col-span-3">
+                                <label for="lastName" class="block text-sm font-medium text-gray-700"
+                                       th:text="#{user.lastName}">
+                                    Last name
+                                </label>
+                                <div>
+                                    <input id="lastName"
+                                           type="text"
+                                           th:field="*{lastName}"
+                                           th:classappend="${#fields.hasErrors('lastName')?'border-red-300 focus:border-red-300 focus:ring-red-500':'focus:ring-green-500 focus:border-green-500'}">
+                                    <div th:if="${#fields.hasErrors('lastName')}"></div>
+                                </div>
+                                <p th:if="${#fields.hasErrors('lastName')}"
+                                   th:text="${#strings.listJoin(#fields.errors('lastName'), ', ')}">
+                                    Last name validation error message(s).
+                                </p>
+                            </div>
+
+                            <div>
+                                <label for="email" th:text="#{user.email}">
+                                    Email address
+                                </label>
+                                <div>
+                                    <input id="email"
+                                           type="email"
+                                           th:field="*{email}"
+                                           th:classappend="${#fields.hasErrors('email')?'border-red-300 focus:border-red-300 focus:ring-red-500':'focus:ring-green-500 focus:border-green-500'}">
+                                    <div th:if="${#fields.hasErrors('email')}"></div>
+                                </div>
+                                <p th:if="${#fields.hasErrors('email')}"
+                                   th:text="${#strings.listJoin(#fields.errors('email'), ', ')}">
+                                    Email validation error message(s).
+                                </p>
+                            </div>
+                            <!-- tag::phoneNumber[] -->
+                            <div>
+                                <label for="phoneNumber" th:text="#{user.phoneNumber}">
+                                    Phone number
+                                </label>
+                                <div>
+                                    <input id="phoneNumber"
+                                           type="text"
+                                           th:field="*{phoneNumber}"
+                                           th:classappend="${#fields.hasErrors('phoneNumber')?'border-red-300 focus:border-red-300 focus:ring-red-500':'focus:ring-green-500 focus:border-green-500'}">
+                                    <div th:if="${#fields.hasErrors('phoneNumber')}"></div>
+                                </div>
+                                <p th:if="${#fields.hasErrors('phoneNumber')}"
+                                   th:text="${#strings.listJoin(#fields.errors('phoneNumber'), ', ')}">
+                                    Phone number validation error message(s).
+                                </p>
+                            </div>
+                            <!-- end::phoneNumber[] -->
+                            <div></div>
+                            <!-- tag::birthday[] -->
+                            <div>
+                                <label for="birthday" th:text="#{user.birthday}">
+                                    Birthday
+                                </label>
+                                <div >
+                                    <input id="birthday"
+                                           type="text"
+                                           th:field="*{birthday}"
+                                           th:placeholder="#{user.birthday.placeholder}"
+                                           th:classappend="${#fields.hasErrors('birthday')?'border-red-300 focus:border-red-300 focus:ring-red-500':'focus:ring-green-500 focus:border-green-500'}">
+                                    <div th:if="${#fields.hasErrors('birthday')}"></div>
+                                </div>
+                                <p th:if="${#fields.hasErrors('birthday')}"
+                                   th:text="${#strings.listJoin(#fields.errors('birthday'), ', ')}">
+                                    Birthday validation error message(s).
+                                </p>
+                            </div>
+                            <!-- end::birthday[] -->
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-end">
+                            <span class="inline-flex">
+                                <button type="button" th:text="#{cancel}">
+                                    Cancel
+                                </button>
+                            </span>
+                            <span>
+                                <button type="submit" th:text="#{save}">
+                                    Save
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
