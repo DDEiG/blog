@@ -1,11 +1,15 @@
-<html xmlns:th="http://www.thymeleaf.org"></html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
 <body>
 
 <nav th:fragment="nav">
     <ul>
         <li><a th:href="@{/}" th:text="#{header.home}">홈</a></li>
         <li><a th:href="@{/posts}" th:text="#{header.posts}">게시글</a></li>
-        <li><a th:href="@{/users}" th:text="#{header.sign-inup}">로그인/회원가입</a></li>
+        <li><a th:href="@{/login}" th:text="#{header.sign-in}" sec:authorize="!isAuthenticated()" >로그인</a></li>
+        <li><a th:href="@{/users}" th:text="#{header.sign-up}" sec:authorize="!isAuthenticated()" >회원가입</a></li>
+        <li><a th:href="@{/users}" th:text="#{header.logout}" sec:authorize="isAuthenticated()" >로그아웃</a></li>
         <li><span th:text="|#{header.locale-msg} ${#locale.country}|"></span></li>
     </ul>
 </nav>

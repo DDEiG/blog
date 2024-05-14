@@ -5,6 +5,7 @@
     <title>Users</title>
 </head>
 <body>
+<div th:insert="~{fragments/header :: nav}"></div>
     <div>
         <h1 th:text="#{user.create}"></h1>
     </div>
@@ -59,8 +60,7 @@
                             <!-- end::firstname[] -->
 
                             <div class="sm:col-span-3">
-                                <label for="lastName" class="block text-sm font-medium text-gray-700"
-                                       th:text="#{user.lastName}">
+                                <label for="lastName" th:text="#{user.lastName}">
                                     Last name
                                 </label>
                                 <div>
@@ -150,5 +150,6 @@
             </div>
         </div>
     </div>
+<div th:insert="~{fragments/footer :: copy}"></div>
 </body>
 </html>
