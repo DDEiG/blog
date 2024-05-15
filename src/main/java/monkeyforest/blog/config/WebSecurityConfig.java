@@ -17,14 +17,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
     // TODO: css 파일 권한 풀어줘야함. 적용안되고있음
-//    private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
 
     public WebSecurityConfig(UserDetailsService userDetailsService) {
-//        this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
     }
-
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -62,7 +59,7 @@ public class WebSecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources
                                 ().atCommonLocations()).permitAll()
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/users").permitAll()
+//                        .requestMatchers("/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users/create").permitAll()
                         .requestMatchers(HttpMethod.GET, "/posts").permitAll()

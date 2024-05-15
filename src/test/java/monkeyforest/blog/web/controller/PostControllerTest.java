@@ -1,5 +1,6 @@
 package monkeyforest.blog.web.controller;
 
+import monkeyforest.blog.config.WebSecurityConfig;
 import monkeyforest.blog.domain.post.persistence.entity.Post;
 import monkeyforest.blog.domain.post.persistence.repository.PostRepository;
 import monkeyforest.blog.domain.post.service.PostService;
@@ -10,17 +11,24 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(PostController.class)
+// TODO: 테스트 코드 정리 -> 공통 bean 설정
+@WebMvcTest(value = PostController.class, includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {WebSecurityConfig.class}))
 class PostControllerTest {
     @Autowired
     MockMvc mockMvc;
@@ -28,8 +36,11 @@ class PostControllerTest {
     PostService postService;
     @MockBean
     PostRepository postRepository;
+    @MockBean
+    UserDetailsService userDetailsService;
 
     @Test
+    @WithAnonymousUser
     void testPostsWithTitle() throws Exception {
         given(postService.searchPosts(any(), any()))
                 .willReturn(Page.empty());
@@ -41,6 +52,7 @@ class PostControllerTest {
     }
 
     @Test
+    @WithAnonymousUser
     void testPostsWithoutTitle() throws Exception {
         given(postService.findPosts(any()))
                 .willReturn(Page.empty());
@@ -50,6 +62,7 @@ class PostControllerTest {
     }
 
     @Test
+    @WithAnonymousUser
     void testPost() throws Exception {
         given(postService.findPost(any()))
                 .willReturn(Post.builder().build());
@@ -59,6 +72,7 @@ class PostControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testWritePostForm() throws Exception {
         mockMvc.perform(get("/post/write"))
                 .andExpect(status().isOk())
@@ -68,27 +82,49 @@ class PostControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testWritePost() throws Exception {
         var form = new PostCreateForm();
         form.setTitle("haha");
         form.setBody("hoho");
         mockMvc.perform(post("/post")
+                        .with(csrf())
                         .flashAttr("post", form))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/posts"));
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testWritePostWithBindingResult() throws Exception {
         var form = new PostCreateForm();
         form.setTitle("haha");
         mockMvc.perform(post("/post")
+                        .with(csrf())
                         .flashAttr("post", form))
                 .andExpect(status().isOk())
                 .andExpect(view().name("post/edit"));
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
+    void testModifyPost() throws Exception {
+        var form = new PostModifyForm();
+        form.setId(1L);
+        form.setTitle("haha");
+        form.setBody("hoho");
+        form.setVersion(1L);
+        given(postService.updatePost(any()))
+                .willReturn(Post.builder().id(1L).build());
+        mockMvc.perform(put("/posts/{id}", 1L)
+                        .with(csrf())
+                        .flashAttr("post", form))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/posts/" + 1));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
     void testModifyPostForm() throws Exception {
         given(postService.findPost(any()))
                 .willReturn(Post.builder().build());
@@ -100,21 +136,7 @@ class PostControllerTest {
     }
 
     @Test
-    void testModifyPost() throws Exception {
-        var form = new PostModifyForm();
-        form.setId(1L);
-        form.setTitle("haha");
-        form.setBody("hoho");
-        form.setVersion(1L);
-        given(postService.updatePost(any()))
-                .willReturn(Post.builder().id(1L).build());
-        mockMvc.perform(put("/posts/{id}", 1L)
-                .flashAttr("post", form))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/posts/" + 1));
-    }
-
-    @Test
+    @WithMockUser(roles = "ADMIN")
     void testModifyPostWithoutBody() throws Exception {
         var form = new PostModifyForm();
         form.setId(1L);
@@ -123,16 +145,19 @@ class PostControllerTest {
         given(postService.updatePost(any()))
                 .willReturn(Post.builder().id(1L).build());
         mockMvc.perform(put("/posts/{id}", 1L)
+                        .with(csrf())
                         .flashAttr("post", form))
                 .andExpect(status().isOk())
                 .andExpect(view().name("post/edit"));
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void testDeletePost() throws Exception {
         given(postService.findPost(any()))
                 .willReturn(Post.builder().title("haha").build());
-        mockMvc.perform(delete("/posts/{id}", 1L))
+        mockMvc.perform(delete("/posts/{id}", 1L)
+                        .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(MockMvcResultMatchers.flash().attribute("deletedPostTitle", "haha"))
                 .andExpect(redirectedUrl("/posts"));
