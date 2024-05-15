@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<th th:fragment="header(tile)"
+    th:text="${tile}">
+    Header title
+</th>
+
+<td th:fragment="data(contents)"
+    th:text="${contents}">
+    Table data contents;
+</td>
+
+<td th:fragment="link(linkText, linkUrl)">
+    <a th:href="${linkUrl}" th:text="${linkText}"></a>
+</td>

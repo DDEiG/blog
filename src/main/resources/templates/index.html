@@ -13,5 +13,11 @@
 <h1 th:text="#{home.title}"></h1>
 <h2 th:utext="#{home.sub-title}"></h2>
 <div th:replace="~{fragments/footer :: copy}"></div>
+<div>
+    <span th:text="${version}"></span>
+</div>
+<div>
+    <span th:text="${group}"></span>
+</div>
 </body>
 </html>
