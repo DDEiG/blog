@@ -13,15 +13,15 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
     // TODO: css 파일 권한 풀어줘야함. 적용안되고있음
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
-        this.passwordEncoder = passwordEncoder;
+    public WebSecurityConfig(UserDetailsService userDetailsService) {
+//        this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
     }
 
@@ -32,7 +32,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder);
@@ -70,9 +70,9 @@ public class WebSecurityConfig {
                         // TODO: 로그인을 해야 댓글을 달 수 있도록 권한설정(ROLE_USER)
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
-                        .loginPage("user/login")
+                        .loginPage("/login")
                         .defaultSuccessUrl("/")
-                        .failureUrl("user/login")
+                        .failureUrl("/login")
                         .permitAll())
                 .logout(logout -> logout
                         .permitAll());
