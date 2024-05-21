@@ -13,20 +13,17 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class CreateUserFormData {
-    private String firstName;
-    private String lastName;
-    private Gender gender;
-    private String email;
+    private String username;
     private String password;
+    private String nickname;
+    private Gender gender;
     private LocalDate birthday;
-    private String phoneNumber;
 
     public CreateUserParameters toParameters() {
-        return new CreateUserParameters(new UserName(firstName, lastName),
+        return new CreateUserParameters(new Email(username),
                 password,
+                nickname,
                 gender,
-                birthday,
-                new Email(email),
-                new PhoneNumber(phoneNumber));
+                birthday);
     }
 }

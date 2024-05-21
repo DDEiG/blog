@@ -9,14 +9,14 @@ import java.util.Objects;
 @Embeddable
 @Getter
 public class Email {
-    private String email;
+    private String username;
 
     protected Email() {
     }
 
-    public Email(String email) {
-        Assert.hasText(email, "email cannot be blank");
-        Assert.isTrue(email.contains("@"), "email should contain @ symbol");
-        this.email = email;
+    public Email(String username) {
+        Assert.hasText(username, "email cannot be blank");
+        Assert.isTrue(username.contains("@"), "email should contain @ symbol");
+        this.username = username;
     }
 }

@@ -19,51 +19,46 @@ public class User extends BaseDateTimes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private UserName userName;
+    private Email username;
+    @NotNull
+    private String password;
+    @Column(nullable = false)
+    private String nickname;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @Column(nullable = false)
     private LocalDate birthday;
-    @Column(nullable = false)
-    private Email email;
-    @Column(nullable = false)
-    private PhoneNumber phoneNumber;
     @ElementCollection(targetClass = UserRole.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles")
     @Column(name = "role")
     private Set<UserRole> roles;
-    @NotNull
-    private String password;
 
-    private User(Set<UserRole> roles, UserName userName, String password, Gender gender, LocalDate birthday, Email email, PhoneNumber phoneNumber) {
-        this.roles = roles;
-        this.userName = userName;
+    private User(Email username, String password, String nickname,Gender gender, LocalDate birthday, Set<UserRole> roles) {
+        this.username = username;
         this.password = password;
+        this.nickname = nickname;
         this.gender = gender;
         this.birthday = birthday;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.roles = roles;
     }
 
-    public static User createUser(UserName userName,
+    public static User createUser(Email username,
                                   String encodedPassword,
+                                  String nickname,
                                   Gender gender,
-                                  LocalDate birthday,
-                                  Email email,
-                                  PhoneNumber phoneNumber) {
-        return new User(Set.of(UserRole.USER), userName,
-                encodedPassword, gender, birthday, email, phoneNumber);
+                                  LocalDate birthday) {
+        return new User(username,
+                encodedPassword, nickname, gender, birthday, Set.of(UserRole.USER));
     }
-    public static User createAdministrator(UserName userName,
+    public static User createAdministrator(Email username,
                                            String encodedPassword,
+                                           String nickname,
                                            Gender gender,
-                                           LocalDate birthday,
-                                           Email email,
-                                           PhoneNumber phoneNumber) {
-        return new User(Set.of(UserRole.USER, UserRole.ADMIN), userName,
-                encodedPassword, gender, birthday, email, phoneNumber);
+                                           LocalDate birthday) {
+        return new User(username,
+                encodedPassword, nickname, gender, birthday, Set.of(UserRole.USER, UserRole.ADMIN));
     }
 
 }

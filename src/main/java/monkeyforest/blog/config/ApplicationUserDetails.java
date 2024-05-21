@@ -18,9 +18,9 @@ public class ApplicationUserDetails implements UserDetails {
 
     public ApplicationUserDetails(User user) {
         this.id = user.getId();
-        this.username = user.getEmail().toString();
-        this.displayName = user.getUserName().getFullName();
+        this.username = user.getUsername().toString();
         this.password = user.getPassword();
+        this.displayName = user.getNickname();
         this.authorities = user.getRoles().stream()
                                 .map(userRole -> new SimpleGrantedAuthority("ROLE_" + userRole.name()))
                                 .collect(Collectors.toSet());
@@ -39,6 +39,14 @@ public class ApplicationUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 
     @Override
@@ -61,11 +69,4 @@ public class ApplicationUserDetails implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
 }

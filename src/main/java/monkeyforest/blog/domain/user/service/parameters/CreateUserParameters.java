@@ -10,6 +10,5 @@ import monkeyforest.blog.domain.user.persistence.entity.field.UserName;
 
 import java.time.LocalDate;
 
-public record CreateUserParameters(UserName userName,String password, Gender gender, LocalDate birthday, Email email,
-                                   PhoneNumber phoneNumber) {
+public record CreateUserParameters(Email username,String password, String nickname, Gender gender, LocalDate birthday) {
 }
