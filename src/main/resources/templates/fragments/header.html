@@ -10,14 +10,11 @@
         <li><a th:href="@{/login}" th:text="#{header.sign-in}" sec:authorize="!isAuthenticated()" >로그인</a></li>
         <li><a th:href="@{/users}" th:text="#{header.sign-up}" sec:authorize="!isAuthenticated()" >회원가입</a></li>
         <li><a th:href="@{/logout}" th:text="#{header.logout}" sec:authorize="isAuthenticated()" >로그아웃</a></li>
+<!--        <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">-->
+<!--            <input type="submit" value="Log out"/>-->
+<!--        </form>-->
         <li><span th:text="|#{header.locale-msg} ${#locale.country}|"></span></li>
     </ul>
 </nav>
-<!--로그아웃을 a태그 링크를 이용해 post 요청 보내는 방식으로 바꿔야 에러가 안남.-->
-<!--<a href="javascript: document.logoutForm.submit()" role="menuitem"> Logout</a>-->
-
-<!--<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">-->
-<!--    <input hidden type="submit" value="Sign Out"/>-->
-<!--</form>-->
 
 </body>

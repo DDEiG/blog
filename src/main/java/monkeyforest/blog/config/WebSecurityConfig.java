@@ -66,6 +66,8 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/users/create").permitAll()
                         .requestMatchers(HttpMethod.GET, "/posts").permitAll()
                         .requestMatchers(HttpMethod.GET, "/posts/{id}").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/logout").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/logout").permitAll()
                         // TODO: 로그인을 해야 댓글을 달 수 있도록 권한설정(ROLE_USER)
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
