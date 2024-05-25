@@ -9,10 +9,12 @@
         <li><a th:href="@{/posts}" th:text="#{header.posts}">게시글</a></li>
         <li><a th:href="@{/login}" th:text="#{header.sign-in}" sec:authorize="!isAuthenticated()" >로그인</a></li>
         <li><a th:href="@{/users}" th:text="#{header.sign-up}" sec:authorize="!isAuthenticated()" >회원가입</a></li>
-        <li><a th:href="@{/logout}" th:text="#{header.logout}" sec:authorize="isAuthenticated()" >로그아웃</a></li>
-<!--        <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">-->
-<!--            <input type="submit" value="Log out"/>-->
-<!--        </form>-->
+        <li>
+            <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                <input type="submit" value="Log out" th:text="#{header.logout}">
+            </form>
+        </li>
+
         <li><span th:text="|#{header.locale-msg} ${#locale.country}|"></span></li>
     </ul>
 </nav>
