@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
 <body>
 <form th:object="${post}"
@@ -27,8 +29,15 @@
     <button type="submit" th:text="#{post.save}"></button>
 </form>
 
+<div id="view-area">
+</div>
+
 <form th:action="${editMode?.name() == 'UPDATE'} ? @{/posts/{id}(id=${post.id})} : @{/posts}">
     <button type="submit" th:text="#{post.cancel}"></button>
 </form>
 </body>
+
+<script>
+    var simplemde = new SimpleMDE({element:document.getElementById("body")});
+</script>
 </html>
