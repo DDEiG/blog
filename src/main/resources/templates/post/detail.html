@@ -7,13 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">-->
+<!--    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>-->
 </head>
 <body>
 <div>
     <span th:text="#{post.title}"></span>
     <input type="text" name="title" th:value="${post.title}" th:readonly="true">
 </div>
-<div hidden="hidden">
+<div hidden>
     <h3 th:text="#{post.body}"></h3>
     <textarea name="body" id="body" cols="30" rows="10" th:text="${post.body}" th:readonly="true"></textarea>
 </div>
@@ -38,6 +40,8 @@
     const body = document.getElementById('body');
     const convertedBody = document.getElementById('view-area');
     convertedBody.innerHTML = converter.makeHtml(body.value)
+    // var simplemde = new SimpleMDE({element:document.getElementById("body")});
+    // simplemde.toTextArea()
 </script>
 
 </html>

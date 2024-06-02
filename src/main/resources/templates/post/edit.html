@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
-    <script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
 <body>
 <form th:object="${post}"
@@ -37,11 +38,6 @@
 </body>
 
 <script>
-    const converter = new showdown.Converter()
-    const body = document.getElementById('body');
-    const convertedBody = document.getElementById('view-area');
-
-    convertedBody.innerHTML = converter.makeHtml(body.value)
-    body.addEventListener("input", () => convertedBody.innerHTML = converter.makeHtml(body.value))
+    var simplemde = new SimpleMDE({element:document.getElementById("body")});
 </script>
 </html>
