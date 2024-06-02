@@ -1,0 +1,43 @@
+@startuml
+entity post {
+    * id: bigint <<generated>>
+--
+}
+
+entity user {
+    * id: bigint <<generated>>
+--
+}
+
+entity comment {
+    * id: bigint <<generated>>
+--
+    * post_id: <<FK>>
+    parent_comment_id: bigint <<FK>>
+    * created_by: bigint <<FK>>
+    * last_modified_by: bigint <<FK>>
+    * content: varchar
+    * created_at: datetime
+    * last_modified_at: datetime
+}
+
+entity notification {
+    * id: bigint <<generated>>
+--
+'    * source: varchar (e.g. COMMENT...)
+'    * destination: varchar (e.g. NOTIFICATION_CENTER, EMAIL...)
+    * recipient_id: bigint <<FK>>
+    * comment_id: bigint <<FK>>
+    * created_at: datetime
+    * last_modified_at: datetime
+    first_checked_at: datetime
+}
+
+
+post ||..o{ comment
+comment ||..o{ notification
+user ||..o{ notification
+user ||..o{ comment
+
+
+@enduml
